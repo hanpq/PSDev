@@ -27,5 +27,6 @@
         }
         Version        = '3.0.17-beta17'
     }
+    'indented.net.ip'            = 'latest'
 
 }
