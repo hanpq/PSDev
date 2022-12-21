@@ -93,6 +93,7 @@
                 [pscustomobject]$ObjectHash
             }
         }
+        # Process IPs
         $CurrentRule.ips | Where-Object { $_ -ne '' -and $_ -ne $null } | ForEach-Object {
             if ($PSItem -like '*:*')
             {
