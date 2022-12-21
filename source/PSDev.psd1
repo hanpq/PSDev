@@ -23,13 +23,16 @@
     AliasesToExport      = '*'
     PrivateData          = @{
         PSData = @{
-            Prerelease               = ''
-            Tags                     = @('PSEdition_Desktop', 'PSEdition_Core', 'Windows', 'Linux', 'MacOS')
-            LicenseUri               = 'https://github.com/hanpq/PSDev/blob/main/LICENSE'
-            ProjectUri               = 'https://getps.dev/modules/PSDev/getstarted'
-            IconUri                  = ''
-            ReleaseNotes             = ''
-            RequireLicenseAcceptance = $false
+            # Due to a bug in PowershellGet 3.0.17-beta17 licenseuri cannot used when Publishing.
+            # Rollback to 3.0.17-beta16 has a bug that does not allow publishing of versioned powershell modules.
+            # These three must be commented until 3.0.17-beta18 is released.
+            #LicenseUri               = 'https://github.com/hanpq/PSDev/blob/main/LICENSE'
+            #RequireLicenseAcceptance = $false
+            Prerelease   = ''
+            Tags         = @('PSEdition_Desktop', 'PSEdition_Core', 'Windows', 'Linux', 'MacOS')
+            ProjectUri   = 'https://getps.dev/modules/PSDev/getstarted'
+            IconUri      = ''
+            ReleaseNotes = ''
         }
     }
 }
