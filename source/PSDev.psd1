@@ -31,7 +31,6 @@
             Prerelease   = ''
             Tags         = @('PSEdition_Desktop', 'PSEdition_Core', 'Windows', 'Linux', 'MacOS')
             ProjectUri   = 'https://getps.dev/modules/PSDev/getstarted'
-            IconUri      = ''
             ReleaseNotes = ''
         }
     }
