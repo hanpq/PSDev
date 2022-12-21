@@ -16,7 +16,7 @@ BeforeDiscovery {
 }
 
 InModuleScope $ProjectName {
-    Describe Get-Something {
+    Describe Test-Office365IPURL {
         Mock Invoke-GarbageCollect {} -Verifiable
 
         Context 'default' {

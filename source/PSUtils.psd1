@@ -16,7 +16,7 @@
     CompanyName          = 'GetPS'
     Copyright            = '(c) Hannes Palmquist. All rights reserved.'
     Description          = 'Various tools'
-    RequiredModules      = @()
+    RequiredModules      = @('indented.net.ip')
     FunctionsToExport    = '*'
     CmdletsToExport      = '*'
     VariablesToExport    = '*'
@@ -33,5 +33,3 @@
         }
     }
 }
-
-

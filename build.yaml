@@ -19,6 +19,13 @@ NestedModule:
 #       Sampler Pipeline Configuration             #
 ####################################################
 
+ModuleBuildTasks:
+  Sampler:
+    - "*.build.Sampler.ib.tasks"
+  Sampler.GitHubTasks:
+    - "*.ib.tasks"
+
+
 BuildWorkflow:
   ".":
     - build
@@ -67,7 +74,7 @@ Pester:
     CodeCoverage:
       Path:
       OutputFormat:
-      CoveragePercentTarget: 80
+      CoveragePercentTarget: 1
       OutputPath: CodeCov.xml
       OutputEncoding: ascii
       ExcludeTests:
