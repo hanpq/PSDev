@@ -17,9 +17,8 @@ TROUBLESHOOTING NOTE:
     Look out on the Github repository for issues and new releases.
 
 SEE ALSO
-   - https://github.com/hanpq/PSUtils
+   - https://github.com/hanpq/PSDev
 
 
 KEYWORDS
       {{ Add coma separated keywords here }}
-
