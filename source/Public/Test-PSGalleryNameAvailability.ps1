@@ -11,6 +11,7 @@
         Test-PSGalleryNameAvailability -PackageName PowershellGet
     #>
     [CmdletBinding()]
+    [OutputType([boolean])]
     param(
         [Parameter(Mandatory)]
         [string]
