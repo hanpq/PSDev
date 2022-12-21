@@ -62,6 +62,7 @@
     # Import net module
     Import-Module indented.net.ip
 
+    # Loop through rules
     $Result = $Office365Endpoints | Where-Object { $Services -contains $_.ServiceArea } | ForEach-Object {
         $CurrentRule = $PSItem
 
