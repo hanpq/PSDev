@@ -5,7 +5,7 @@
       Retreive a list of ip and urls required for communication to and from Office 365.
 
       .PARAMETER IP
-      Defines the IP to search for with in the scopes of rules returned from Office 365
+      Defines the IP to search for with in the scopes of rules returned from Office 365.
 
       .PARAMETER Office365IPURL
       Defines the URL to the Office 365 IP URL Endpoint. Defaults to 'https://endpoints.office.com/endpoints/worldwide?clientrequestid=b10c5ed1-bad1-445f-b386-b919946339a7'.
