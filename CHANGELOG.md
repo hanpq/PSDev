@@ -7,8 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added: Test-PSGalleryNameAvailability.ps1
-- Added: Test-Office365IPURL.ps1
-- Added: Get-Office365IPURL.ps1
-- Added: Debug-String.ps1
-- Added: Add-NumberFormater.ps1
+- Added function Test-PSGalleryNameAvailability
+- Added function Test-Office365IPURL
+- Added function Get-Office365IPURL
+- Added function Debug-String
+- Added function Add-NumberFormater
+
+### Fixed
+
+- Removed debug-string tests because of incompatibility with Windows Powershell. New tests should be created.
