@@ -2,7 +2,7 @@
 
   Prerequisites: PowerShell v5.1 and above (verified; may also work in earlier versions)
   License: MIT
-  Author:  Michael Klement <mklement0@gmail.com>
+  Author:  Michael Klement (email redacted to spare author of spam-hunter-bots.)
 
 #>
 
