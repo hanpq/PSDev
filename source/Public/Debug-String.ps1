@@ -14,6 +14,9 @@ function Debug-String
         Outputs a string in diagnostic form or as source code.
 
         .DESCRIPTION
+
+        Author:  Michael Klement
+
         Prints a string with control or hidden characters visualized, and optionally
         all non-ASCII-range Unicode characters represented as escape sequences.
 

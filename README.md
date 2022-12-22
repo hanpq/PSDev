@@ -10,7 +10,7 @@ This project has adopted the following policies [![CodeOfConduct](https://img.sh
 
 ## About
 
-PSDev is a...
+PSDev contains a collection of utility functions. See the usage section below for a description of each tool.
 
 ## Installation
 
@@ -23,3 +23,20 @@ Install-Module PSDev -Scope CurrentUser
 ```
 
 ## Usage
+
+### Functions
+
+#### Add-NumberFormater
+Adds a custom ToString() method to the number variable that will print the value with magnitude notation like KB, MB for datasize and general K, M for normal numbers.
+
+#### Debug-String
+This is a function that can analyze a string and show hidden characters like tabs, line feed, carage return etc. This is a script originally written by Michael Klement
+
+#### Get-Office365IPURL
+This function will call the Microsoft API and retreive all urls, ips and ip-ranges that Office 365 services use.
+
+#### Test-Office365IPURL
+This function takes an IP address as input and searches for it within the IP-ranges defined by Microsoft. This is useful when troubleshooting connectivity issues with Office 365 where you need to verify if a blocked IP is in fact defined in the Microsoft IP ranges.
+
+#### Test-PSGalleryNameAvailability
+This function will simply try to resolve the specified package name and check if the name is taken. This is useful when a owner of a package unlists the packages but the package name is still allocated to that owner. Those packages will yield no return when searching for the name on PSGallery or using Find-Module. The function circumvents this by calling the package url directly. Even if the package is unlisted the package url will still be resolved. If there is no package with that name (including unlisted) a 404 message will be returned. 
