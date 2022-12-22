@@ -7,24 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- For new features.
-
-### Changed
-
-- For changes in existing functionality.
-
-### Deprecated
-
-- For soon-to-be removed features.
-
-### Removed
-
-- For now removed features.
-
-### Fixed
-
-- For any bug fix.
-
-### Security
-
-- In case of vulnerabilities.
+- Added: Test-PSGalleryNameAvailability.ps1
+- Added: Test-Office365IPURL.ps1
+- Added: Get-Office365IPURL.ps1
+- Added: Debug-String.ps1
+- Added: Add-NumberFormater.ps1
