@@ -110,3 +110,6 @@ GitHubConfig:
   GitHubConfigUserName: hanpq
   GitHubConfigUserEmail: hannes.palmquist@outlook.com
   UpdateChangelogOnPrerelease: false
+  Docs:
+    DocsRepo:
+      - "https://github.com/hanpq/getps.dev.git"
