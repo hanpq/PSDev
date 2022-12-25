@@ -26,7 +26,7 @@
         $url = "https://api.pwnedpasswords.com/range/$First5HashChars"
         [Net.ServicePointManager]::SecurityProtocol = 'Tls12'
         $response = Invoke-RestMethod -Uri $url -UseBasicParsing
-        $lines = $response -split '\r\n'
+        $lines = $response -split '\n'
         $filteredLines = $lines -like "$remainingHashChars*"
 
         return ([boolean]([int]($filteredLines -split ':')[-1]))
