@@ -5,6 +5,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added function Convert-Object
+- Added function Get-Color
+- Added function Get-DotNetVersion
+- Added function Get-PublicIP
+- Added function Get-StringHash
+- Added function Group-ObjectEvenly
+- Added function New-Password
+- Added function Resolve-IPinSubnet
+- Added function Set-EnvironmentVariable
+- Added function Switch-Object
+- Added function Test-AllHashKeysAreTrue
+- Added function Test-RebootPending
+
 ## [1.0.3] - 2022-12-22
 
 ### Fixed
