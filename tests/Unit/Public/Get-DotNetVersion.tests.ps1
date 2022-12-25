@@ -33,7 +33,7 @@ InModuleScope $ProjectName {
                 $result.Version | Should -BeOfType [string]
                 $result.version | Should -Be '.NET Framework 4.8'
                 $result.OS | Should -BeOfType [string]
-                $result.OS | Should -Be 'Server'
+                $result.OS | Should -Be 'All except [Windows 11],[Windows Server 2022],[Windows 10 May 2020 Update],[Windows 10 October 2020 Update],[Windows 10 May 2021 Update],[Windows 10 May 2019 Update],[Windows 10 November 2019 Update]'
             }
             It -Name 'Query release number' {
                 $Result = Get-DotNetVersion -Release 528049
@@ -42,7 +42,7 @@ InModuleScope $ProjectName {
                 $result.Version | Should -BeOfType [string]
                 $result.version | Should -Be '.NET Framework 4.8'
                 $result.OS | Should -BeOfType [string]
-                $result.OS | Should -Be 'Server'
+                $result.OS | Should -Be 'All except [Windows 11],[Windows Server 2022],[Windows 10 May 2020 Update],[Windows 10 October 2020 Update],[Windows 10 May 2021 Update],[Windows 10 May 2019 Update],[Windows 10 November 2019 Update]'
             }
         }
     }
