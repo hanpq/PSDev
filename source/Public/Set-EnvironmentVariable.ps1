@@ -32,6 +32,13 @@
         $Target = 'Process'
     )
 
+    # Force target to process on Linux and MacOS and warn user.
+    if ($Target -ne 'Process' -and ($IsLinux -or $IsMacOS))
+    {
+        Write-Warning -Message 'It is only supported to set process environment variables on Linux and MacOS, environment varable will be set in Process scope'
+        $Target = [System.EnvironmentVariableTarget]::Process
+    }
+
     if ($PSCmdlet.ShouldProcess($Name))
     {
         [Environment]::SetEnvironmentVariable($Name, $Value, $Target)
