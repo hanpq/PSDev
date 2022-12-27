@@ -56,6 +56,9 @@ A function that will group objects in a specific number of groups or a specific 
 #### New-Password
 This function generates new passwords. Default it will create short temporary passwords. Can be used to generate complex passwords with options to include/exclude character groups.
 
+#### Remove-GitHubArtifact
+Removes all GitHub artifacts for a given repo or all repos on an account. 
+
 #### Resolve-IPinSubnet
 Checks if a specified IP address is included in the IP range of a specific network.
 

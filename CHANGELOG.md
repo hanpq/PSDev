@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added function Remove-GitHubArtifacts
+
 ### Fixed
 
 - Get-DotNetVersion: Updated versions to include values for 4.8.1
