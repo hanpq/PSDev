@@ -31,10 +31,10 @@ InModuleScope $ProjectName {
                 } -ParameterFilter { $uri -match '.*artifacts\/.*' -and $method -eq 'DELETE' } -Verifiable
             }
             It 'Should not throw' {
-                { Remove-GitHubArtifact -GitHubSecret $env:GitHubToken -GitHubOrg hanpq } | Should -Not -Throw
+                { Remove-GitHubArtifact -GitHubSecret 'foo' -GitHubOrg hanpq } | Should -Not -Throw
             }
             It 'Should not call delete artifact' {
-                Remove-GitHubArtifact -GitHubSecret $env:GitHubToken -GitHubOrg hanpq
+                Remove-GitHubArtifact -GitHubSecret 'foo' -GitHubOrg hanpq
                 Should -Invoke -CommandName Invoke-RestMethod -ParameterFilter { $uri -match '.*artifacts\/.*' -and $method -eq 'DELETE' } -Times 0
             }
         }
@@ -51,10 +51,10 @@ InModuleScope $ProjectName {
                 } -ParameterFilter { $uri -match '.*artifacts\/.*' -and $method -eq 'DELETE' } -Verifiable
             }
             It 'Should not throw' {
-                { Remove-GitHubArtifact -Repo 'PSScriptInfo' -GitHubSecret $env:GitHubToken -GitHubOrg hanpq } | Should -Not -Throw
+                { Remove-GitHubArtifact -Repo 'PSScriptInfo' -GitHubSecret 'foo' -GitHubOrg hanpq } | Should -Not -Throw
             }
             It 'Should not call delete artifact' {
-                Remove-GitHubArtifact -Repo 'PSScriptInfo' -GitHubSecret $env:GitHubToken -GitHubOrg hanpq
+                Remove-GitHubArtifact -Repo 'PSScriptInfo' -GitHubSecret 'foo' -GitHubOrg hanpq
                 Should -Invoke -CommandName Invoke-RestMethod -ParameterFilter { $uri -match '.*artifacts\/.*' -and $method -eq 'DELETE' } -Times 0
             }
         }
