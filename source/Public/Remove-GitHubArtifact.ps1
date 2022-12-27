@@ -5,6 +5,8 @@
         Cleanup artifacts from GitHub repo
     .DESCRIPTION
         This script will remove all artifacts for a single repos or all repos for a given user
+    .PARAMETER RepoName
+        Defines a specific repository to remove artifacts for
     .PARAMETER GitHubSecret
         Defines the GitHubSecret (API Key) to use
     .PARAMETER GitHubOrg
