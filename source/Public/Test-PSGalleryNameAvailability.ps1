@@ -2,7 +2,7 @@
 {
     <#
         .DESCRIPTION
-        Retreive a list of ip and urls required for communication to and from Office 365.
+        Checks if the specified PackageName is already taken in PSGallery
 
         .PARAMETER PackageName
         Defines the package name to search for
