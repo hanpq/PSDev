@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Added back license URI i module manifest as the bug causing PowershellGet to fail packageing the module in beta17 is resolved.
+
+### Fixed
+
 - Fixed documentation for Test-PSGalleryNameAvailability
 
 ## [1.2.0] - 2022-12-27
