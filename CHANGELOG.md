@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Addded
 
 - New function: Convert-Metric
+- New function: Get-Selector
 
 ## [1.3.0] - 2023-01-12
 
