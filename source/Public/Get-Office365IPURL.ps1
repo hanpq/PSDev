@@ -126,11 +126,11 @@
         {
             if ($OnlyRequired)
             {
-                $Result | Where-Object { $_.required -eq $true } | Sort-Object -Property Group | Format-Table
+                $Result | Where-Object { $_.required -eq $true } | Sort-Object -Property Group
             }
             else
             {
-                $Result | Sort-Object -Property Group | Format-Table
+                $Result | Sort-Object -Property Group
             }
         }
         'JSON'
