@@ -82,14 +82,14 @@
 
             $CurrentRule.TCPPorts -split (',') | Where-Object { $_ -ne '' } | ForEach-Object {
                 $ObjectHash.Protocol = 'TCP'
-                $ObjectHash.Port = $PSItem
-                $ObjectHash.Group = $CurrentRule.ServiceArea + '_' + 'TCP' + '_' + "$PSItem" + '_' + 'URL'
+                $ObjectHash.Port = $PSItem.Trim()
+                $ObjectHash.Group = $CurrentRule.ServiceArea + '_' + 'TCP' + '_' + "$($PSItem.Trim())" + '_' + 'URL'
                 [pscustomobject]$ObjectHash
             }
             $CurrentRule.UDPPorts -split (',') | Where-Object { $_ -ne '' } | ForEach-Object {
                 $ObjectHash.Protocol = 'UDP'
-                $ObjectHash.Port = $PSItem
-                $ObjectHash.Group = $CurrentRule.ServiceArea + '_' + 'UDP' + '_' + "$PSItem" + '_' + 'URL'
+                $ObjectHash.Port = $PSItem.Trim()
+                $ObjectHash.Group = $CurrentRule.ServiceArea + '_' + 'UDP' + '_' + "$($PSItem.Trim())" + '_' + 'URL'
                 [pscustomobject]$ObjectHash
             }
         }
@@ -107,14 +107,14 @@
 
             $CurrentRule.TCPPorts -split (',') | Where-Object { $_ -ne '' } | ForEach-Object {
                 $ObjectHash.Protocol = 'TCP'
-                $ObjectHash.Port = $PSItem
-                $ObjectHash.Group = $CurrentRule.ServiceArea + '_' + 'TCP' + '_' + "$PSItem" + '_' + 'IP'
+                $ObjectHash.Port = $PSItem.Trim()
+                $ObjectHash.Group = $CurrentRule.ServiceArea + '_' + 'TCP' + '_' + "$($PSItem.Trim())" + '_' + 'IP'
                 [pscustomobject]$ObjectHash
             }
             $CurrentRule.UDPPorts -split (',') | Where-Object { $_ -ne '' } | ForEach-Object {
                 $ObjectHash.Protocol = 'UDP'
-                $ObjectHash.Port = $PSItem
-                $ObjectHash.Group = $CurrentRule.ServiceArea + '_' + 'UDP' + '_' + "$PSItem" + '_' + 'IP'
+                $ObjectHash.Port = $PSItem.Trim()
+                $ObjectHash.Group = $CurrentRule.ServiceArea + '_' + 'UDP' + '_' + "$($PSItem.Trim())" + '_' + 'IP'
                 [pscustomobject]$ObjectHash
             }
         }
