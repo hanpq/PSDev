@@ -110,7 +110,7 @@
         }
         528449
         {
-            $RegKey.Version = '.NET Framework 4.8'
+            $RegKey.Version = '.NET Framework 4.8.0'
             $RegKey.OS = 'Windows 11 and Windows Server 2022'
         }
         528040
