@@ -37,7 +37,7 @@ InModuleScope $ProjectName {
         }
         Context -Name 'ParameterSet_Custom' {
             It -Name 'Length' {
-            (New-Password -Length 20).Length | Should -Be 20
+                (New-Password -Length 20).Length | Should -Be 20
             }
             It -Name 'Custom_Count' {
                 New-Password -Custom -Count 10 | Should -HaveCount 10

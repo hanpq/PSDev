@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- New-Password; Added diceware password support
+
 ## [1.4.2] - 2023-09-01
 
 ### Fixed

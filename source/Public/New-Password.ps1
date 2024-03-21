@@ -34,6 +34,26 @@
             Defines a custom rule for password selection
         .PARAMETER AllowInterchangableCharacters
             Defines that characters as i|I and l|L and 0|O can be used in the password, defaults to false
+        .PARAMETER Diceware
+            Defines that a diceware password should be generated
+        .PARAMETER WordCount
+            Defines how many words the diceware password should made up of
+        .PARAMETER CustomFirstWord
+            Optionally define a custom first word of the diceware series. The theory is that you can include one word that is not part of the standard diceware wordlist making all bruteforce dictonary attacks much harder. Given that any word in any language aside from the ~8000 words in the diceware wordlist the number of combinations is much greater.
+        .EXAMPLE
+            New-Password -Diceware -WordCount 5 -Count 3
+
+            robust.dawn\condense/poet#cost
+            parchment\parcel:remedy:ultra'triage
+            spelling,mooned*propeller%legwarmer*flagstick
+
+        .EXAMPLE
+            New-Password -Diceware -WordCount 5 -Count 3 -CustomFirstWord 'gardin'
+
+            gardin\throwback"chirping#remake"poem
+            gardin#juvenile!putt\jittery.palatable
+            gardin'astonish\decaf"imprudent?specimen
+
         .EXAMPLE
             New-Password -Simple -Count 3
 
@@ -73,8 +93,48 @@
 
         [switch]$ReturnSecureStringObject,
 
-        [switch]$AllowInterchangableCharacters
+        [switch]$AllowInterchangableCharacters,
+
+        [Parameter(ParameterSetName = 'diceware')]
+        [ValidateRange(2, 256)]
+        [int]$WordCount = 4,
+
+        [Parameter(ParameterSetName = 'diceware')]
+        [switch]
+        $Diceware,
+
+        [Parameter(ParameterSetName = 'diceware')]
+        [string]
+        $CustomFirstWord
+
     )
+
+    function ThrowDice
+    {
+        $String = ''
+        for ($i = 0; $i -lt 5; $i++)
+        {
+            $String += ([System.Security.Cryptography.RandomNumberGenerator]::GetInt32(1, 7)).ToString()
+        }
+        return ($String -as [int])
+    }
+
+    function SelectDiceWord
+    {
+        param (
+            [ref]$WordListHash
+        )
+        return ($WordListHash.Value[(ThrowDice).ToString()])
+    }
+
+    function SelectRandomSign
+    {
+        param (
+            [char[]]$Signs
+        )
+
+        return ($Signs[([System.Security.Cryptography.RandomNumberGenerator]::GetInt32(0, ($Signs.Count)))])
+    }
 
     $Arrays = @{
         LettersAndDigits = [char[]]@(48..57 + 65..90 + 97..122)
@@ -83,6 +143,14 @@
         UpperConsonants  = [char[]]@('B', 'C', 'D', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'X', 'Z', 'W', 'Y')
         LowerConsonants  = [char[]]@('b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l' , 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'x', 'z', 'w', 'y')
         LowerVowels      = [char[]]@('a', 'e', 'i', 'o', 'u')
+    }
+
+    if ($PSCmdlet.ParameterSetName -eq 'diceware')
+    {
+        $WordListHash = @{}
+        Import-Csv (Resolve-Path "$PSScriptRoot\Include\eff_large_wordlist.txt") -Delimiter "`t" -Header 'Dice', 'Word' | ForEach-Object {
+            $WordListHash.Add($PSItem.Dice, $PSItem.Word)
+        }
     }
 
     if (-not $AllowInterchangableCharacters)
@@ -114,6 +182,7 @@
                 $CharArray += ($Arrays.LowerConsonants | Get-Random -Count 1)
                 $CharArray += ($Arrays.LowerVowels | Get-Random -Count 1)
                 $CharArray += ($Arrays.LowerConsonants | Get-Random -Count 1)
+                $CharArray += ($Arrays.LowerVowels | Get-Random -Count 1)
                 $CharArray += ($Arrays.Digits | Get-Random -Count 5)
 
                 $PasswordString = $CharArray -join ''
@@ -138,6 +207,29 @@
                     }
                 }
                 $PasswordString = $CharArray -join ''
+            }
+            'diceware'
+            {
+                $PasswordString = ''
+
+                if ($CustomFirstWord)
+                {
+                    if ($WordListHash.ContainsValue($CustomFirstWord))
+                    {
+                        Write-Warning -Message 'The chosen first word is already included in the diceware word list, please select another word.'
+                    }
+                    $PasswordString += $CustomFirstWord
+                }
+                else
+                {
+                    $PasswordString += SelectDiceWord -WordListHash ([ref]$WordListHash)
+                }
+
+                1..($WordCount - 1) | ForEach-Object {
+                    $PasswordString += SelectRandomSign -Signs $Arrays.Signs
+                    $PasswordString += SelectDiceWord -WordListHash ([ref]$WordListHash)
+                }
+
             }
         }
         if ($ReturnSecureStringObject)
