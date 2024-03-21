@@ -170,8 +170,8 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           name: civoShell
-		  token: ${{ secrets.CODECOV_TOKEN }}
-		  type: ./output/testResults/CodeCov.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          type: ./output/testResults/CodeCov.xml
       - uses: actions/upload-artifact@v4
         with:
           retention-days: 1
