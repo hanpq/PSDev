@@ -114,7 +114,14 @@
         $String = ''
         for ($i = 0; $i -lt 5; $i++)
         {
-            $String += ([System.Security.Cryptography.RandomNumberGenerator]::GetInt32(1, 7)).ToString()
+            if ($PSVersionTable.PSEdition -eq 'core')
+            {
+                $String += ([System.Security.Cryptography.RandomNumberGenerator]::GetInt32(1, 7)).ToString()
+            }
+            else
+            {
+                $String += (Get-Random -Minimum 1 -Maximum 7).ToString()
+            }
         }
         return ($String -as [int])
     }
@@ -132,8 +139,14 @@
         param (
             [char[]]$Signs
         )
-
-        return ($Signs[([System.Security.Cryptography.RandomNumberGenerator]::GetInt32(0, ($Signs.Count)))])
+        if ($PSVersionTable.PSEdition -eq 'core')
+        {
+            return ($Signs[([System.Security.Cryptography.RandomNumberGenerator]::GetInt32(0, ($Signs.Count)))])
+        }
+        else
+        {
+            return ($Signs[(Get-Random -Minimum 0 -Maximum ($Signs.Count))])
+        }
     }
 
     $Arrays = @{
