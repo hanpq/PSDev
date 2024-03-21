@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - New-Password; Added diceware password support
 
+### Changed
+
+- New-Password; Increased default password from 10 to 11 chars (one more letter)
+
 ## [1.4.2] - 2023-09-01
 
 ### Fixed
