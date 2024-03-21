@@ -148,7 +148,7 @@
     if ($PSCmdlet.ParameterSetName -eq 'diceware')
     {
         $WordListHash = @{}
-        Import-Csv (Resolve-Path "$PSScriptRoot\Include\eff_large_wordlist.txt") -Delimiter "`t" -Header 'Dice', 'Word' | ForEach-Object {
+        Import-Csv (Resolve-Path "$PSScriptRoot\include\eff_large_wordlist.txt") -Delimiter "`t" -Header 'Dice', 'Word' | ForEach-Object {
             $WordListHash.Add($PSItem.Dice, $PSItem.Word)
         }
     }

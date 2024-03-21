@@ -1,6 +1,9 @@
 BeforeDiscovery {
-        $RootItem = Get-Item $PSScriptRoot
-    while ($RootItem.GetDirectories().Name -notcontains "source") {$RootItem = $RootItem.Parent}
+    $RootItem = Get-Item $PSScriptRoot
+    while ($RootItem.GetDirectories().Name -notcontains 'source')
+    {
+        $RootItem = $RootItem.Parent
+    }
     $ProjectPath = $RootItem.FullName
     $ProjectName = (Get-ChildItem $ProjectPath\*\*.psd1 | Where-Object {
             ($_.Directory.Name -eq 'source') -and
@@ -22,8 +25,8 @@ InModuleScope $ProjectName {
     Describe 'New-Password' {
         Context -Name 'ParameterSet_Simple' {
             It -Name 'Standard' {
-                New-Password | Should -Match -RegularExpression '^[A-Z]{1}[a-z]{4}[0-9]{5}'
-            ((New-Password -Count 100) -join '') | Should -Not -BeLike '*o*'
+                New-Password | Should -Match -RegularExpression '^[A-Z]{1}[a-z]{5}[0-9]{5}'
+                ((New-Password -Count 100) -join '') | Should -Not -BeLike '*o*'
             }
             It -Name 'Count' {
                 New-Password -Count 10 | Should -HaveCount 10
@@ -32,7 +35,7 @@ InModuleScope $ProjectName {
                 New-Password -ReturnSecureStringObject | Should -BeOfType [System.Security.Securestring]
             }
             It -Name 'AllowInterchangableCharacters' {
-            (New-Password -Count 100 -AllowInterchangableCharacters) -join '' | Should -BeLike '*o*'
+                (New-Password -Count 100 -AllowInterchangableCharacters) -join '' | Should -BeLike '*o*'
             }
         }
         Context -Name 'ParameterSet_Custom' {
@@ -44,6 +47,13 @@ InModuleScope $ProjectName {
             }
             It -Name 'Custom_Signs' {
                 { New-Password -Custom -Signs 5 } | Should -Not -Throw
+            }
+        }
+        Context -Name 'ParameterSet_Diceware' {
+            It -Name 'Should not throw' {
+                { New-Password -Diceware } | Should -Not -Throw
+                $Result = New-Password -Diceware -Count 3
+                $Result | Should -HaveCount 3
             }
         }
     }
