@@ -39,7 +39,7 @@
         .PARAMETER WordCount
             Defines how many words the diceware password should made up of
         .PARAMETER CustomFirstWord
-            Optionally define a custom first word of the diceware series. The theory is that you can include one word that is not part of the standard diceware wordlist making all bruteforce dictonary attacks much harder. Given that any word in any language aside from the ~8000 words in the diceware wordlist the number of combinations is much greater.
+            Optionally define a custom first word of the diceware series.
         .EXAMPLE
             New-Password -Diceware -WordCount 5 -Count 3
 
