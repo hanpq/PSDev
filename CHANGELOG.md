@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Compare-ObjectProperties; Added new command to compare all properties of two objects
+
 ## [1.4.3] - 2024-03-21
 
 ### Added
