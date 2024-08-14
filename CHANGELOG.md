@@ -5,6 +5,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Start-Sound; Added new command to play windows built in sounds. Useful to notify the user of the completion of long running tasks.
+- New-Password; Now supports diceware
+
 ## [1.5.0] - 2024-03-27
 
 ### Added

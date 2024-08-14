@@ -3,8 +3,6 @@
     <#
         .DESCRIPTION
             Function that generates passwords
-        .PARAMETER Simple
-            Specifies that the function will create a password according to the following ruleset
 
             The first characters is a captial consonant letter
             The second character is a lower vowel letter
@@ -20,18 +18,23 @@
             Wodi6380
             Jaki2830
             Kezo2617
+        .PARAMETER SkipCompromisedCheck
+            By default each generated password is check against the "have i been pawned" database. To disable this check specify this parameter.
+            Note that the complete hash of the password is never sent, only the first 5 chars of the password hash is sent. The API then returns
+            all known hashed that begin with those 5 chars. The check if the full hash exists in the returned list is performed locally. For more
+            information see the help for the cmdlet Test-PasswordAgainstPwnedPasswordService.
+        .PARAMETER Random
+            Create a randomly generated password
         .PARAMETER Count
             Defines the number of passwords to generate. This can be used to create batches of passwords. Defaults to 1.
         .PARAMETER Length
-            When the parameter set custom is used this parameter lets the user select
+            When the parameter set random is used this parameter lets the user select
             how long the password should be. Defaults to 8.
         .PARAMETER Signs
-            When the parameter set custom is used this parameter lets the user select
+            When the parameter set random is used this parameter lets the user select
             how many signs/symbols that should be included in the password. Defaults to 3.
         .PARAMETER ReturnSecureStringObject
             Return password as secure string
-        .PARAMETER Custom
-            Defines a custom rule for password selection
         .PARAMETER AllowInterchangableCharacters
             Defines that characters as i|I and l|L and 0|O can be used in the password, defaults to false
         .PARAMETER Diceware
@@ -55,7 +58,7 @@
             gardin'astonish\decaf"imprudent?specimen
 
         .EXAMPLE
-            New-Password -Simple -Count 3
+            New-Password -Count 3
 
             Wuba9710
             Suve0945
@@ -80,33 +83,55 @@
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'False positive')]
     [CmdletBinding(DefaultParameterSetName = 'Simple')]
     param(
-        [Parameter(ParameterSetName = 'Custom')]
-        [ValidateRange(0, 128)][int]$Length = 12,
+        # Generic parameters for all
+        [Parameter()]
+        [int]
+        $Count = 1,
 
-        [Parameter(ParameterSetName = 'Custom')]
-        [int]$Signs = 3,
+        [Parameter()]
+        [switch]
+        $ReturnSecureStringObject,
 
-        [int]$Count = 1,
+        [Parameter()]
+        [switch]
+        $AllowInterchangableCharacters,
 
-        [Parameter(ParameterSetName = 'Custom')]
-        [switch]$Custom,
+        [Parameter()]
+        [switch]
+        $SkipCompromisedCheck,
 
-        [switch]$ReturnSecureStringObject,
+        # Parameters specific to random
+        [Parameter(ParameterSetName = 'Random')]
+        [switch]
+        $Random,
 
-        [switch]$AllowInterchangableCharacters,
+        [Parameter(ParameterSetName = 'Random')]
+        [ValidateRange(0, 128)]
+        [int]
+        $Length = 12,
 
-        [Parameter(ParameterSetName = 'diceware')]
-        [ValidateRange(2, 256)]
-        [int]$WordCount = 4,
+        [Parameter(ParameterSetName = 'Random')]
+        [int]
+        $Signs = 3,
 
+        # Parameters specific to diceware
         [Parameter(ParameterSetName = 'diceware')]
         [switch]
         $Diceware,
 
         [Parameter(ParameterSetName = 'diceware')]
-        [string]
-        $CustomFirstWord
+        [ValidateRange(2, 256)]
+        [int]
+        $WordCount = 4,
 
+
+        [Parameter(ParameterSetName = 'diceware')]
+        [string]
+        $CustomFirstWord,
+
+        [Parameter(ParameterSetName = 'diceware')]
+        [char]
+        $CustomWordSeparator
     )
 
     function ThrowDice
@@ -184,7 +209,8 @@
         $Signs = $Length
     }
 
-    1..$Count | ForEach-Object {
+    for ($i = 0; $i -lt $Count; $i++)
+    {
         switch ($PSCmdlet.ParameterSetName)
         {
             'Simple'
@@ -200,7 +226,7 @@
 
                 $PasswordString = $CharArray -join ''
             }
-            'Custom'
+            'Random'
             {
                 $CharArray = [char[]]@()
                 $NumberOfChars = $Signs
@@ -239,12 +265,31 @@
                 }
 
                 1..($WordCount - 1) | ForEach-Object {
-                    $PasswordString += SelectRandomSign -Signs $Arrays.Signs
+                    if ($PSBoundParameters.ContainsKey('CustomWordSeparator'))
+                    {
+                        $PasswordString += $CustomWordSeparator
+                    }
+                    else
+                    {
+                        $PasswordString += SelectRandomSign -Signs $Arrays.Signs
+                    }
                     $PasswordString += SelectDiceWord -WordListHash ([ref]$WordListHash)
                 }
 
             }
         }
+
+        if (-not $SkipCompromisedCheck)
+        {
+            $Result = Test-PasswordAgainstPwnedPasswordService -InputObject (ConvertTo-SecureString -String $PasswordString -AsPlainText -Force)
+            if ($Result)
+            {
+                Write-Warning "Generated password [$PasswordString] was excluded because it existed in the pawned database"
+                $i--
+                continue
+            }
+        }
+
         if ($ReturnSecureStringObject)
         {
             ConvertTo-SecureString -String $PasswordString -AsPlainText -Force
@@ -253,6 +298,5 @@
         {
             $PasswordString
         }
-
     }
 }

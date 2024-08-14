@@ -43,10 +43,10 @@ InModuleScope $ProjectName {
                 (New-Password -Length 20).Length | Should -Be 20
             }
             It -Name 'Custom_Count' {
-                New-Password -Custom -Count 10 | Should -HaveCount 10
+                New-Password -Random -Count 10 | Should -HaveCount 10
             }
             It -Name 'Custom_Signs' {
-                { New-Password -Custom -Signs 5 } | Should -Not -Throw
+                { New-Password -Random -Signs 5 } | Should -Not -Throw
             }
         }
         Context -Name 'ParameterSet_Diceware' {
