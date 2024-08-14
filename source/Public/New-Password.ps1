@@ -43,6 +43,8 @@
             Defines how many words the diceware password should made up of
         .PARAMETER CustomFirstWord
             Optionally define a custom first word of the diceware series.
+        .PARAMETER CustomWordSeparator
+            Optionally set a custom separator char when generating diceware
         .EXAMPLE
             New-Password -Diceware -WordCount 5 -Count 3
 
