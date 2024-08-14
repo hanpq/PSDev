@@ -9,6 +9,7 @@
         Start-Sound
         Plays the selected sound
     #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'FP, not changing any state')]
     [CmdletBinding()]
     param()
     DynamicParam
@@ -16,7 +17,10 @@
         # Define base parameter attributes
         $ParameterName = 'Sound'
         $ParameterDataType = [string]
-        $ParameterValidateSet = [array](Get-ChildItem HKCU:\AppEvents\Schemes\Apps\.Default | where-object {$_.PSChildName -ne '.Default'} | foreach-object {$Value = (Get-ItemProperty "$($PSITEM.PSPath)\.Current").'(Default)'; if ($Value) {$PSItem.PSChildName}})
+        $ParameterValidateSet = [array](Get-ChildItem HKCU:\AppEvents\Schemes\Apps\.Default | Where-Object { $_.PSChildName -ne '.Default' } | ForEach-Object { $Value = (Get-ItemProperty "$($PSITEM.PSPath)\.Current").'(Default)'; if ($Value)
+                {
+                    $PSItem.PSChildName
+                } })
 
         # Create simple parameter attributes
         $ParameterAttribute = New-Object -TypeName System.Management.Automation.ParameterAttribute
@@ -47,10 +51,12 @@
     BEGIN
     {
 
-        if ($PSBoundParameters.ContainsKey('Sound')) {
+        if ($PSBoundParameters.ContainsKey('Sound'))
+        {
             $SoundName = $PSBoundParameters['Sound']
         }
-        else {
+        else
+        {
             $SoundName = 'Notification.Proximity'
         }
 
