@@ -5,6 +5,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.0] - 2024-08-14
+
 ### Added
 
 - Start-Sound; Added new command to play windows built in sounds. Useful to notify the user of the completion of long running tasks.
