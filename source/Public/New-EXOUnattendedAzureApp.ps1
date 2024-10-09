@@ -38,7 +38,7 @@ function New-EXOUnattendedAzureApp
         .DESCRIPTION
             Provisions a new azure app and configures it for Exchange Online management
         .PARAMETER Organization
-            Defines the organization
+            Defines the organization that the azure app should be created in.
         .PARAMETER OutputDirectory
             Defines the output directory of the certificate
         .PARAMETER AppName

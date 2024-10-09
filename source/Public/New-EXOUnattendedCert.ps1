@@ -38,7 +38,7 @@ function New-EXOUnattendedCert
         .DESCRIPTION
             Creates a new self-signed certificate than can be used for azure app authentication.
         .PARAMETER Organization
-            Defines the organization
+            Defines the organization that the azure app is created in.
         .PARAMETER OutputDirectory
             Defines the output directory of the certificate
         .PARAMETER AppID

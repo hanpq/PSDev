@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added new cmdlet New-EXOUnattendedAzureApp, used to create an Azure App for unattended access to Exchange Online.
-- Added new cmdlet New-EXOUnattendedCert, used to add a new self-signed certificate for an Azure App.
+- Added new cmdlet New-EXOUnattendedCert, used to add a new self-signed certificate for an Azure App. 
 
 ## [1.6.0] - 2024-08-14
 
