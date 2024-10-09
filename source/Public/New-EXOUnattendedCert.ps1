@@ -34,6 +34,24 @@ PSScriptInfo#>
 
 function New-EXOUnattendedCert
 {
+    <#
+        .DESCRIPTION
+            Creates a new self-signed certificate than can be used for azure app authentication.
+        .PARAMETER Organization
+            Defines the organization
+        .PARAMETER OutputDirectory
+            Defines the output directory of the certificate
+        .PARAMETER AppID
+            Defines the AppID to add the new self signed certificate to.
+        .PARAMETER DisplayName
+            Defines the displayname of the new certificate
+        .PARAMETER PassThru
+            If specified an object is returned with the result data instead of written to host.
+        .EXAMPLE
+            New-EXOUnattendedCert -Organization contoso.onmicrosoft.com -OutputDirectory C:\output -AppID <guid> -DisplayName 'Exchange Management Certificate'
+
+            Creates new azure app named ExchangeManagement.
+    #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Do not agree that a new item changes state')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification = 'Interactive script')]
     [CmdletBinding()]

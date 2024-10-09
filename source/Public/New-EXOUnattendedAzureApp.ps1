@@ -34,6 +34,22 @@ PSScriptInfo#>
 
 function New-EXOUnattendedAzureApp
 {
+    <#
+        .DESCRIPTION
+            Provisions a new azure app and configures it for Exchange Online management
+        .PARAMETER Organization
+            Defines the organization
+        .PARAMETER OutputDirectory
+            Defines the output directory of the certificate
+        .PARAMETER AppName
+            Defines the name of the new azure app. Default to ExchangeScriptAccess
+        .PARAMETER PassThru
+            If specified an object is returned with the result data instead of written to host.
+        .EXAMPLE
+            New-EXOUnattendedAzureApp -Organization contoso.onmicrosoft.com -OutputDirectory C:\output -AppName 'ExchangeManagement'
+
+            Creates new azure app named ExchangeManagement.
+    #>
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification = 'Interactive script')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Do not agree that a new item changes state')]
     [CmdletBinding()]
