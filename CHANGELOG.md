@@ -5,6 +5,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.2] - 2024-10-09
+
 ### Added
 
 - Added new cmdlet New-EXOUnattendedAzureApp, used to create an Azure App for unattended access to Exchange Online.
