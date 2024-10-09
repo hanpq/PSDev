@@ -18,9 +18,9 @@
     Description          = 'Various tools'
     RequiredModules      = @('indented.net.ip')
     FunctionsToExport    = '*'
-    CmdletsToExport      = '*'
-    VariablesToExport    = '*'
-    AliasesToExport      = '*'
+    #CmdletsToExport      = '*'
+    #VariablesToExport    = '*'
+    #AliasesToExport      = '*'
     PrivateData          = @{
         PSData = @{
             LicenseUri   = 'https://github.com/hanpq/PSDev/blob/main/LICENSE'

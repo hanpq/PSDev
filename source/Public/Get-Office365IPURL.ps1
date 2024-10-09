@@ -26,8 +26,7 @@
       Get-Office365IPURL -Services Exchange,Skype -OnlyRequired -Types IP4,URL -Outputformat JSON
 
     #>
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'Services', Justification = 'False positive')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'Types', Justification = 'False positive')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'False positive')]
     [CmdletBinding()]
     param(
         [Parameter()]
