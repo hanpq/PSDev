@@ -162,7 +162,7 @@ module.exports = [
     # PlatyPS has a dependency library collision with powershell-yaml for the
     # DotNetYaml assembly. By running the doc generation with Start-Job PlatyPS
     # is loaded in a separate powershell process.
-    $result = Start-Job $ScriptBlock -ArgumentList $BuiltModuleSubdirectory, $ProjectName, $OutputDirectory, $BuildRoot | Receive-Job -Wait
+    $result = Start-Job $ScriptBlock -ArgumentList $BuiltModuleSubdirectory, $ProjectName, $BuiltModuleSubdirectory, $BuildRoot | Receive-Job -Wait
     $result | ForEach-Object {
         Write-Build DarkGray "`t$_"
     }
