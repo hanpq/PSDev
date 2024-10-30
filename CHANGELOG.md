@@ -5,9 +5,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
+### Removed
 
-- CI/CD verification
+- Removed Start-Sound as it is Windows only. PSDev should be compatible with linux, mac and windows.
 
 ## [1.7.2] - 2024-10-09
 

@@ -799,10 +799,6 @@ F8D1797B70C70DC036DC5057E535AB58319:2
 
     }
 
-    Describe 'Start-Sound' {
-
-    }
-
     Describe 'Switch-Object' {
 
     }
