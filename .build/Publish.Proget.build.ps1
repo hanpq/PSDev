@@ -135,6 +135,7 @@ Task publish_module_to_proget -if ($PSTOOLS_APITOKEN) {
         }
         else
         {
+            Write-Build Red "Error: $_"
             throw $_
         }
     }
