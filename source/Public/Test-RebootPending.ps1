@@ -14,7 +14,7 @@
     param(
     )
 
-    PROCESS
+    process
     {
         $rebootRequired = Test-Path -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\RebootPending'
         return $rebootRequired
