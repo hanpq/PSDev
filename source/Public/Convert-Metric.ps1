@@ -1,71 +1,105 @@
 ﻿function Convert-Metric
 {
     <#
-        .DESCRIPTION
-            Function that converts speed metrics
-        .PARAMETER Bps
-            Defines bytes per second value
-        .PARAMETER Bpm
-            Defines bytes per minute value
-        .PARAMETER Bph
-            Defines bytes per hour value
-        .PARAMETER Bit
-            Defines bits per second value
-        .PARAMETER Kbps
-            Defines kilobytes per second value
-        .PARAMETER Kbpm
-            Defines kilobytes per minute value
-        .PARAMETER Kbph
-            Defines kilobytes per hour value
-        .PARAMETER Kbit
-            Defines kilobits per second value
-        .PARAMETER Mbps
-            Defines megabytes per second value
-        .PARAMETER Mbpm
-            Defines megabytes per minute value
-        .PARAMETER Mbph
-            Defines megabytes per hour value
-        .PARAMETER Mbit
-            Defines megabits per second value
-        .PARAMETER Gbps
-            Defines gigabytes per second value
-        .PARAMETER Gbpm
-            Defines gigabytes per minute value
-        .PARAMETER Gbph
-            Defines gigabytes per hour value
-        .PARAMETER Gbit
-            Defines gigabits per second value
-        .PARAMETER Shortunits
-            Specifies that the resulting object specifies the metrics with short units i.e. "Mbps" instead of "MB per sec"
-        .PARAMETER RoundToNearestInteger
-            Specifies that all values are rounded to the nearest integer
-        .PARAMETER Round
-            Defines that the values should be rounded
-        .PARAMETER RoundMethod
-            Defines what rounding method should be used, valid values are FindScale and MathRound
-        .EXAMPLE
-            Convert-Metric -Gbph 40 -ShortUnits -RoundToNearestInteger
+    .SYNOPSIS
+        Converts between various data transfer speed metrics.
 
-            Name      Value
-            ----      -----
-            Bps       11930465
-            Bpm       715827883
-            Bph       42949672960
-            Bit       95443718
-            KBps      11651
-            KBpm      699051
-            KBph      41943040
-            KBit      93207
-            MBps      11
-            MBpm      683
-            MBph      40960
-            MBit      91
-            GBps      0
-            GBpm      1
-            GBph      40
-            GBit      0
+    .DESCRIPTION
+        Convert-Metric is a utility function for converting between bytes, bits, kilobytes, megabytes, gigabytes per second, minute, or hour.
+        It supports both bits and bytes, and can handle conversions for per-second, per-minute, and per-hour rates.
+        The function can round results using either standard rounding or a custom scaling method, and can output results with short or descriptive unit names.
 
-            This commands converts "40 gigabyte per hour" to all the other metrics in the table and rounds the value.
+        Supported input metrics:
+            - Bytes per second (Bps)
+            - Bytes per minute (Bpm)
+            - Bytes per hour (Bph)
+            - Bits per second (Bit)
+            - Kilobytes per second (Kbps)
+            - Kilobytes per minute (Kbpm)
+            - Kilobytes per hour (Kbph)
+            - Kilobits per second (Kbit)
+            - Megabytes per second (Mbps)
+            - Megabytes per minute (Mbpm)
+            - Megabytes per hour (Mbph)
+            - Megabits per second (Mbit)
+            - Gigabytes per second (Gbps)
+            - Gigabytes per minute (Gbpm)
+            - Gigabytes per hour (Gbph)
+            - Gigabits per second (Gbit)
+
+        Output is an ordered dictionary containing all supported metrics, either with short units (e.g. "MBps") or descriptive names (e.g. "MB per sec").
+    .PARAMETER Bps
+        Defines bytes per second value
+    .PARAMETER Bpm
+        Defines bytes per minute value
+    .PARAMETER Bph
+        Defines bytes per hour value
+    .PARAMETER Bit
+        Defines bits per second value
+    .PARAMETER Kbps
+        Defines kilobytes per second value
+    .PARAMETER Kbpm
+        Defines kilobytes per minute value
+    .PARAMETER Kbph
+        Defines kilobytes per hour value
+    .PARAMETER Kbit
+        Defines kilobits per second value
+    .PARAMETER Mbps
+        Defines megabytes per second value
+    .PARAMETER Mbpm
+        Defines megabytes per minute value
+    .PARAMETER Mbph
+        Defines megabytes per hour value
+    .PARAMETER Mbit
+        Defines megabits per second value
+    .PARAMETER Gbps
+        Defines gigabytes per second value
+    .PARAMETER Gbpm
+        Defines gigabytes per minute value
+    .PARAMETER Gbph
+        Defines gigabytes per hour value
+    .PARAMETER Gbit
+        Defines gigabits per second value
+    .PARAMETER Shortunits
+        Specifies that the resulting object specifies the metrics with short units i.e. "Mbps" instead of "MB per sec"
+    .PARAMETER RoundToNearestInteger
+        Specifies that all values are rounded to the nearest integer
+    .PARAMETER Round
+        Defines that the values should be rounded
+    .PARAMETER RoundMethod
+        Defines what rounding method should be used, valid values are FindScale and MathRound
+    .EXAMPLE
+        Convert-Metric -Gbph 40 -ShortUnits -RoundToNearestInteger
+
+        Name      Value
+        ----      -----
+        Bps       11930465
+        Bpm       715827883
+        Bph       42949672960
+        Bit       95443718
+        KBps      11651
+        KBpm      699051
+        KBph      41943040
+        KBit      93207
+        MBps      11
+        MBpm      683
+        MBph      40960
+        MBit      91
+        GBps      0
+        GBpm      1
+        GBph      40
+        GBit      0
+
+        This commands converts "40 gigabyte per hour" to all the other metrics in the table and rounds the value.
+
+    .OUTPUTS
+        [System.Collections.Specialized.OrderedDictionary]
+        An ordered dictionary with converted metric values.
+
+    .NOTES
+        Author: Hannes Palmquist
+        Copyright (c) Hannes Palmquist. All rights reserved.
+
     #>
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
