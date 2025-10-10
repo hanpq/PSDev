@@ -136,19 +136,41 @@
         $CustomWordSeparator
     )
 
+    if ($PSVersionTable.PSEdition -ne 'Core')
+    {
+        Write-Warning -Message 'Using Windows Powershell, Get-Random is used, this function is not cryptographically secure. Consider using Powershell Core for better security.'
+    }
+
+    function GetInternalRandom
+    {
+        param (
+            [int]$Min,
+            [int]$Max
+        )
+        if ($PSVersionTable.PSEdition -eq 'core')
+        {
+            return ([System.Security.Cryptography.RandomNumberGenerator]::GetInt32($Min, $Max))
+        }
+        else
+        {
+            return (Get-Random -Minimum $Min -Maximum $Max)
+        }
+    }
+
+    function GetInternalRandomObject
+    {
+        param (
+            $Array
+        )
+        return $Array[(GetInternalRandom -Min 0 -Max $Array.Count)]
+    }
+
     function ThrowDice
     {
         $String = ''
         for ($i = 0; $i -lt 5; $i++)
         {
-            if ($PSVersionTable.PSEdition -eq 'core')
-            {
-                $String += ([System.Security.Cryptography.RandomNumberGenerator]::GetInt32(1, 7)).ToString()
-            }
-            else
-            {
-                $String += (Get-Random -Minimum 1 -Maximum 7).ToString()
-            }
+            $String += (GetInternalRandom -Min 1 -Max 7).ToString()
         }
         return ($String -as [int])
     }
@@ -166,14 +188,7 @@
         param (
             [char[]]$Signs
         )
-        if ($PSVersionTable.PSEdition -eq 'core')
-        {
-            return ($Signs[([System.Security.Cryptography.RandomNumberGenerator]::GetInt32(0, ($Signs.Count)))])
-        }
-        else
-        {
-            return ($Signs[(Get-Random -Minimum 0 -Maximum ($Signs.Count))])
-        }
+        return ($Signs[(GetInternalRandom -min 0 -max $Signs.Count)])
     }
 
     $Arrays = @{
@@ -218,13 +233,14 @@
             'Simple'
             {
                 $CharArray = [char[]]@()
-                $CharArray += ($Arrays.UpperConsonants | Get-Random -Count 1)
-                $CharArray += ($Arrays.LowerVowels | Get-Random -Count 1)
-                $CharArray += ($Arrays.LowerConsonants | Get-Random -Count 1)
-                $CharArray += ($Arrays.LowerVowels | Get-Random -Count 1)
-                $CharArray += ($Arrays.LowerConsonants | Get-Random -Count 1)
-                $CharArray += ($Arrays.LowerVowels | Get-Random -Count 1)
-                $CharArray += ($Arrays.Digits | Get-Random -Count 5)
+                $CharArray += (GetInternalRandomObject -Array $Arrays.UpperConsonants)
+                $CharArray += (GetInternalRandomObject -Array $Arrays.UpperConsonants)
+                $CharArray += (GetInternalRandomObject -Array $Arrays.LowerVowels)
+                $CharArray += (GetInternalRandomObject -Array $Arrays.LowerConsonants)
+                $CharArray += (GetInternalRandomObject -Array $Arrays.LowerVowels)
+                $CharArray += (GetInternalRandomObject -Array $Arrays.LowerConsonants)
+                $CharArray += (GetInternalRandomObject -Array $Arrays.LowerVowels)
+                $CharArray += (GetInternalRandomObject -Array $Arrays.Digits)
 
                 $PasswordString = $CharArray -join ''
             }
@@ -234,17 +250,17 @@
                 $NumberOfChars = $Signs
                 1..$Length | ForEach-Object {
                     $CurrentChar = $_
-                    $Decider = Get-Random -Minimum 0 -Maximum 100
+                    $Decider = GetInternalRandom -Min 0 -Max 100
                     $CharsLeft = ($Length + 1 - $CurrentChar)
                     $Chance = ($NumberOfChars / $CharsLeft * 100)
                     if ($Decider -lt $Chance -or $CharsLeft -le $NumberOfChars)
                     {
-                        $CharArray += ($Arrays.Signs | Get-Random -Count 1)
+                        $CharArray += GetInternalRandomObject -Array $Arrays.Signs
                         $NumberOfChars--
                     }
                     else
                     {
-                        $CharArray += ($Arrays.LettersAndDigits | Get-Random -Count 1)
+                        $CharArray += GetInternalRandomObject -Array $Arrays.LettersAndDigits
                     }
                 }
                 $PasswordString = $CharArray -join ''
@@ -277,7 +293,6 @@
                     }
                     $PasswordString += SelectDiceWord -WordListHash ([ref]$WordListHash)
                 }
-
             }
         }
 
