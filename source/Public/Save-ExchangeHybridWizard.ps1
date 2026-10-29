@@ -1,6 +1,28 @@
 ﻿function Save-ExchangeHybridWizard
 {
+    <#
+    .SYNOPSIS
+        Downloads and packages the Exchange Hybrid Wizard.
+    .DESCRIPTION
+        Resolves the wizard's ClickOnce deployment files, downloads them into
+        the output directory, and creates a ZIP archive beside that directory.
+    .PARAMETER StartUrl
+        The URL used to start the wizard download. Defaults to
+        https://aka.ms/hybridwizard.
+    .PARAMETER OutputDir
+        The directory where the wizard files are saved. A ZIP archive named
+        <OutputDir>.zip is created alongside it. Defaults to .\HybridWizard.
+    .EXAMPLE
+        Save-ExchangeHybridWizard
 
+        Downloads the Exchange Hybrid Wizard into .\HybridWizard and creates
+        .\HybridWizard.zip.
+    .EXAMPLE
+        Save-ExchangeHybridWizard -OutputDir C:\Downloads\HybridWizard
+
+        Saves the wizard files to C:\Downloads\HybridWizard and creates the
+        corresponding ZIP archive.
+    #>
     [CmdletBinding()]
     param(
         [string]$StartUrl = 'https://aka.ms/hybridwizard',
@@ -8,7 +30,7 @@
     )
 
     # Helper function
-    function Download-ClickOnceFile
+    function DownloadClickOnceFile
     {
 
         param(
@@ -37,7 +59,7 @@
             }
             catch
             {
-
+                Write-Warning "Failed to download $($candidate): $_"
             }
         }
 
@@ -112,7 +134,7 @@
     $exeName = $exeManifest.assembly.assemblyIdentity.name
 
 
-    Download-ClickOnceFile $exeName
+    DownloadClickOnceFile $exeName
 
     # Download <file> nodes
     foreach ($fileNode in $exeManifest.assembly.file)

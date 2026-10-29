@@ -12,6 +12,8 @@
 
         Monitor the last 50 lines of app.log with color-coded severity levels and subtle alternating text colors
     #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification = 'Core functionality of the function')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'FP No system state changes')]
     param (
         [Parameter(Mandatory)]
         [string]$FilePath,
@@ -94,55 +96,55 @@
         {
             'EMERGENCY|EMERG'
             {
-                Write-FormattedLogLine 'EMERGENCY' $CurrentLine $UseAlternatingColor
+                Write-FormattedLogLine -SeverityType 'EMERGENCY' -LogLine $CurrentLine -UseAlternatingColor $UseAlternatingColor
             }
             'ALERT'
             {
-                Write-FormattedLogLine 'ALERT' $CurrentLine $UseAlternatingColor
+                Write-FormattedLogLine -SeverityType 'ALERT' -LogLine $CurrentLine -UseAlternatingColor $UseAlternatingColor
             }
             'CRITICAL|CRIT'
             {
-                Write-FormattedLogLine 'CRITICAL' $CurrentLine $UseAlternatingColor
+                Write-FormattedLogLine -SeverityType 'CRITICAL' -LogLine $CurrentLine -UseAlternatingColor $UseAlternatingColor
             }
             'FATAL'
             {
-                Write-FormattedLogLine 'FATAL' $CurrentLine $UseAlternatingColor
+                Write-FormattedLogLine -SeverityType 'FATAL' -LogLine $CurrentLine -UseAlternatingColor $UseAlternatingColor
             }
             'FAIL|FAILURE'
             {
-                Write-FormattedLogLine 'FAIL' $CurrentLine $UseAlternatingColor
+                Write-FormattedLogLine -SeverityType 'FAIL' -LogLine $CurrentLine -UseAlternatingColor $UseAlternatingColor
             }
             'ERROR|ERR'
             {
-                Write-FormattedLogLine 'ERROR' $CurrentLine $UseAlternatingColor
+                Write-FormattedLogLine -SeverityType 'ERROR' -LogLine $CurrentLine -UseAlternatingColor $UseAlternatingColor
             }
             'WARNING|WARN'
             {
-                Write-FormattedLogLine 'WARNING' $CurrentLine $UseAlternatingColor
+                Write-FormattedLogLine -SeverityType 'WARNING' -LogLine $CurrentLine -UseAlternatingColor $UseAlternatingColor
             }
             'NOTICE'
             {
-                Write-FormattedLogLine 'NOTICE' $CurrentLine $UseAlternatingColor
+                Write-FormattedLogLine -SeverityType 'NOTICE' -LogLine $CurrentLine -UseAlternatingColor $UseAlternatingColor
             }
             'INFO|INFORMATION'
             {
-                Write-FormattedLogLine 'INFO' $CurrentLine $UseAlternatingColor
+                Write-FormattedLogLine -SeverityType 'INFO' -LogLine $CurrentLine -UseAlternatingColor $UseAlternatingColor
             }
             'DEBUG'
             {
-                Write-FormattedLogLine 'DEBUG' $CurrentLine $UseAlternatingColor
+                Write-FormattedLogLine -SeverityType 'DEBUG' -LogLine $CurrentLine -UseAlternatingColor $UseAlternatingColor
             }
             'TRACE|VERBOSE'
             {
-                Write-FormattedLogLine 'TRACE' $CurrentLine $UseAlternatingColor
+                Write-FormattedLogLine -SeverityType 'TRACE' -LogLine $CurrentLine -UseAlternatingColor $UseAlternatingColor
             }
             'SUCCESS|SUCCEEDED'
             {
-                Write-FormattedLogLine 'SUCCESS' $CurrentLine $UseAlternatingColor
+                Write-FormattedLogLine -SeverityType 'SUCCESS' -LogLine $CurrentLine -UseAlternatingColor $UseAlternatingColor
             }
             default
             {
-                Write-FormattedLogLine 'DEFAULT' $CurrentLine $UseAlternatingColor
+                Write-FormattedLogLine -SeverityType 'DEFAULT' -LogLine $CurrentLine -UseAlternatingColor $UseAlternatingColor
             }
         }
     }

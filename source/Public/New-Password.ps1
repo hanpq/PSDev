@@ -4,10 +4,10 @@
         .DESCRIPTION
             Function that generates passwords
 
-            The first characters is a captial consonant letter
+            The first character is a capital consonant letter
             The second character is a lower vowel letter
             The third character is a lower consonant letter
-            The fourth character is lower vowel letter
+            The fourth character is a lower vowel letter
             The remaining four characters are digits.
 
             This structure creates a password that is easy to remember but is less secure. What
@@ -234,13 +234,12 @@
             {
                 $CharArray = [char[]]@()
                 $CharArray += (GetInternalRandomObject -Array $Arrays.UpperConsonants)
-                $CharArray += (GetInternalRandomObject -Array $Arrays.UpperConsonants)
                 $CharArray += (GetInternalRandomObject -Array $Arrays.LowerVowels)
                 $CharArray += (GetInternalRandomObject -Array $Arrays.LowerConsonants)
                 $CharArray += (GetInternalRandomObject -Array $Arrays.LowerVowels)
-                $CharArray += (GetInternalRandomObject -Array $Arrays.LowerConsonants)
-                $CharArray += (GetInternalRandomObject -Array $Arrays.LowerVowels)
-                $CharArray += (GetInternalRandomObject -Array $Arrays.Digits)
+                1..4 | ForEach-Object {
+                    $CharArray += (GetInternalRandomObject -Array $Arrays.Digits)
+                }
 
                 $PasswordString = $CharArray -join ''
             }

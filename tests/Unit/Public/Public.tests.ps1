@@ -6,7 +6,7 @@
     }
     $ProjectPath = $RootItem.FullName
     $ProjectName = (Get-ChildItem $ProjectPath\*\*.psd1 | Where-Object {
-        ($_.Directory.Name -eq 'source') -and
+            ($_.Directory.Name -eq 'source') -and
             $(try
                 {
                     Test-ModuleManifest $_.FullName -ErrorAction Stop
@@ -116,7 +116,7 @@ InModuleScope $ProjectName {
                     FromString = 'Hello World'
                     Property   = $Conversion
                 }
-            (Convert-Object @Splatting) | Should -Be $value
+                (Convert-Object @Splatting) | Should -Be $value
             }
         }
         Context 'FromBase64String' {
@@ -139,7 +139,7 @@ InModuleScope $ProjectName {
                     FromBase64String = 'SGVsbG8gV29ybGQ='
                     Property         = $Conversion
                 }
-            (Convert-Object @Splatting) | Should -Be $value
+                (Convert-Object @Splatting) | Should -Be $value
             }
         }
         Context 'FromByteArray' {
@@ -162,7 +162,7 @@ InModuleScope $ProjectName {
                     FromByteArray = ([byte[]](72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100))
                     Property      = $Conversion
                 }
-            (Convert-Object @Splatting) | Should -Be $value
+                (Convert-Object @Splatting) | Should -Be $value
             }
         }
         Context 'FromCharArray' {
@@ -184,7 +184,7 @@ InModuleScope $ProjectName {
                     FromCharArray = ([char[]]('H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd'))
                     Property      = $Conversion
                 }
-            (Convert-Object @Splatting) | Should -Be $value
+                (Convert-Object @Splatting) | Should -Be $value
             }
         }
         Context 'FromGUID' {
@@ -207,7 +207,7 @@ InModuleScope $ProjectName {
                     FromGUID = [guid]::new('253ff55e-78c7-4273-afbe-683e8bf6b1a5')
                     Property = $Conversion
                 }
-            (Convert-Object @Splatting) | Should -Be $value
+                (Convert-Object @Splatting) | Should -Be $value
             }
         }
         Context 'FromHexStringArray' {
@@ -227,7 +227,7 @@ InModuleScope $ProjectName {
                     FromHexStringArray = ([string[]]('48', '65', '6c', '6c', '6f', '20', '57', '6f', '72', '6c', '64'))
                     Property           = $Conversion
                 }
-            (Convert-Object @Splatting) | Should -Be $value
+                (Convert-Object @Splatting) | Should -Be $value
             }
         }
         Context 'FromHexString' {
@@ -249,7 +249,7 @@ InModuleScope $ProjectName {
                     FromHexString = '48656c6c6f20576f726c64'
                     Property      = $Conversion
                 }
-            (Convert-Object @Splatting) | Should -Be $value
+                (Convert-Object @Splatting) | Should -Be $value
             }
         }
         Context 'FromBinaryStringArray' {
@@ -271,7 +271,7 @@ InModuleScope $ProjectName {
                     FromBinaryStringArray = ([string[]]('01001000', '01100101', '01101100', '01101100', '01101111', '00100000', '01010111', '01101111', '01110010', '01101100', '01100100'))
                     Property              = $Conversion
                 }
-            (Convert-Object @Splatting) | Should -Be $value
+                (Convert-Object @Splatting) | Should -Be $value
             }
         }
         Context 'FromBigInteger' {
@@ -293,7 +293,7 @@ InModuleScope $ProjectName {
                     FromBigInteger = 121404708493354166158910792
                     Property       = $Conversion
                 }
-            (Convert-Object @Splatting) | Should -Be $value
+                (Convert-Object @Splatting) | Should -Be $value
             }
         }
         Context 'FromInt64' {
@@ -315,7 +315,7 @@ InModuleScope $ProjectName {
                     FromInt64 = 7378697629483820646
                     Property  = $Conversion
                 }
-            (Convert-Object @Splatting) | Should -Be $value
+                (Convert-Object @Splatting) | Should -Be $value
             }
         }
         Context 'FromIPAddressString' {
@@ -337,7 +337,7 @@ InModuleScope $ProjectName {
                     FromIPAddressString = '72.101.108.108.111.32.87.111.114.108.100'
                     Property            = $Conversion
                 }
-            (Convert-Object @Splatting) | Should -Be $value
+                (Convert-Object @Splatting) | Should -Be $value
             }
         }
         Context 'FromScriptBlock' {
@@ -359,7 +359,7 @@ InModuleScope $ProjectName {
                     FromScriptBlock = [scriptblock]::Create('Hello World')
                     Property        = $Conversion
                 }
-            (Convert-Object @Splatting) | Should -Be $value
+                (Convert-Object @Splatting) | Should -Be $value
             }
         }
         Context 'FromByteCollection' {
@@ -381,7 +381,7 @@ InModuleScope $ProjectName {
                     FromByteCollection = [Microsoft.PowerShell.Commands.ByteCollection]::New(([byte[]](72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100)))
                     Property           = $Conversion
                 }
-            (Convert-Object @Splatting) | Should -Be $value
+                (Convert-Object @Splatting) | Should -Be $value
             }
         }
         Context 'ToSecureString validation' {
@@ -401,7 +401,7 @@ InModuleScope $ProjectName {
                 $Splatting = @{
                     $conversion = $value
                 }
-            ((Convert-Object @Splatting -Property SecureString) -is [string]) -and ((Convert-Object @Splatting -Property SecureString).Length -gt 10) | Should -Be $true
+                ((Convert-Object @Splatting -Property SecureString) -is [string]) -and ((Convert-Object @Splatting -Property SecureString).Length -gt 10) | Should -Be $true
             }
         }
         Context 'ToSecureStringObject validation' {
@@ -419,7 +419,7 @@ InModuleScope $ProjectName {
                 $Splatting = @{
                     $conversion = $value
                 }
-            (Convert-Object @Splatting -Property SecureStringObject) -is [System.Security.SecureString] | Should -Be $true
+                (Convert-Object @Splatting -Property SecureStringObject) -is [System.Security.SecureString] | Should -Be $true
             }
         }
     }
@@ -533,8 +533,8 @@ InModuleScope $ProjectName {
                 $Objects | Group-ObjectEvenly -SizeOfGroup 6 | Should -HaveCount 2
             }
             It -Name 'Each group should have 6 objects' {
-            ($Objects | Group-ObjectEvenly -SizeOfGroup 6)[0].Group | Should -HaveCount 6
-            ($Objects | Group-ObjectEvenly -SizeOfGroup 6)[1].Group | Should -HaveCount 6
+                ($Objects | Group-ObjectEvenly -SizeOfGroup 6)[0].Group | Should -HaveCount 6
+                ($Objects | Group-ObjectEvenly -SizeOfGroup 6)[1].Group | Should -HaveCount 6
             }
         }
         Context -Name 'When passing even number of objects 12 objects and split by number of groups 6' {
@@ -545,12 +545,12 @@ InModuleScope $ProjectName {
                 $Objects | Group-ObjectEvenly -NbrOfGroups 6 | Should -HaveCount 6
             }
             It -Name 'Each group should have 6 objects' {
-            ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[0].Group | Should -HaveCount 2
-            ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[1].Group | Should -HaveCount 2
-            ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[2].Group | Should -HaveCount 2
-            ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[3].Group | Should -HaveCount 2
-            ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[4].Group | Should -HaveCount 2
-            ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[5].Group | Should -HaveCount 2
+                ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[0].Group | Should -HaveCount 2
+                ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[1].Group | Should -HaveCount 2
+                ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[2].Group | Should -HaveCount 2
+                ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[3].Group | Should -HaveCount 2
+                ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[4].Group | Should -HaveCount 2
+                ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[5].Group | Should -HaveCount 2
             }
         }
         Context -Name 'When passing $null objects' {
@@ -566,9 +566,9 @@ InModuleScope $ProjectName {
                 $Objects | Group-ObjectEvenly -SizeOfGroup 6 | Should -HaveCount 3
             }
             It -Name 'Each group should have 6 objects' {
-            ($Objects | Group-ObjectEvenly -SizeOfGroup 6)[0].Group | Should -HaveCount 6
-            ($Objects | Group-ObjectEvenly -SizeOfGroup 6)[1].Group | Should -HaveCount 6
-            ($Objects | Group-ObjectEvenly -SizeOfGroup 6)[2].Group | Should -HaveCount 1
+                ($Objects | Group-ObjectEvenly -SizeOfGroup 6)[0].Group | Should -HaveCount 6
+                ($Objects | Group-ObjectEvenly -SizeOfGroup 6)[1].Group | Should -HaveCount 6
+                ($Objects | Group-ObjectEvenly -SizeOfGroup 6)[2].Group | Should -HaveCount 1
             }
         }
         Context -Name 'When passing odd number of objects 13 objects and split by number of groups 6' {
@@ -579,12 +579,12 @@ InModuleScope $ProjectName {
                 $Objects | Group-ObjectEvenly -NbrOfGroups 6 | Should -HaveCount 6
             }
             It -Name 'Each group should have 6 objects' {
-            ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[0].Group | Should -HaveCount 2
-            ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[1].Group | Should -HaveCount 2
-            ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[2].Group | Should -HaveCount 2
-            ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[3].Group | Should -HaveCount 2
-            ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[4].Group | Should -HaveCount 2
-            ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[5].Group | Should -HaveCount 3
+                ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[0].Group | Should -HaveCount 2
+                ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[1].Group | Should -HaveCount 2
+                ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[2].Group | Should -HaveCount 2
+                ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[3].Group | Should -HaveCount 2
+                ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[4].Group | Should -HaveCount 2
+                ($Objects | Group-ObjectEvenly -NbrOfGroups 6)[5].Group | Should -HaveCount 3
             }
         }
     }
@@ -592,34 +592,34 @@ InModuleScope $ProjectName {
     Describe 'New-Password' {
         Context -Name 'ParameterSet_Simple' {
             It -Name 'Standard' {
-                New-Password | Should -Match -RegularExpression '^[A-Z]{1}[a-z]{5}[0-9]{5}'
-                ((New-Password -Count 100) -join '') | Should -Not -BeLike '*o*'
+                New-Password -SkipCompromisedCheck | Should -Match -RegularExpression '^[A-Z][a-z]{3}[0-9]{4}$'
+                ((New-Password -Count 100 -SkipCompromisedCheck) -join '') | Should -Not -BeLike '*o*'
             }
             It -Name 'Count' {
-                New-Password -Count 10 | Should -HaveCount 10
+                New-Password -Count 10 -SkipCompromisedCheck | Should -HaveCount 10
             }
             It -Name 'ReturnSecureStringObject' {
-                New-Password -ReturnSecureStringObject | Should -BeOfType [System.Security.Securestring]
+                New-Password -ReturnSecureStringObject -SkipCompromisedCheck | Should -BeOfType [System.Security.Securestring]
             }
             It -Name 'AllowInterchangableCharacters' {
-                (New-Password -Count 100 -AllowInterchangableCharacters) -join '' | Should -BeLike '*o*'
+                (New-Password -Count 100 -AllowInterchangableCharacters -SkipCompromisedCheck) -join '' | Should -BeLike '*o*'
             }
         }
         Context -Name 'ParameterSet_Custom' {
             It -Name 'Length' {
-                (New-Password -Length 20).Length | Should -Be 20
+                (New-Password -Length 20 -SkipCompromisedCheck).Length | Should -Be 20
             }
             It -Name 'Custom_Count' {
-                New-Password -Random -Count 10 | Should -HaveCount 10
+                New-Password -Random -Count 10 -SkipCompromisedCheck | Should -HaveCount 10
             }
             It -Name 'Custom_Signs' {
-                { New-Password -Random -Signs 5 } | Should -Not -Throw
+                { New-Password -Random -Signs 5 -SkipCompromisedCheck } | Should -Not -Throw
             }
         }
         Context -Name 'ParameterSet_Diceware' {
             It -Name 'Should not throw' {
-                { New-Password -Diceware } | Should -Not -Throw
-                $Result = New-Password -Diceware -Count 3
+                { New-Password -Diceware -SkipCompromisedCheck } | Should -Not -Throw
+                $Result = New-Password -Diceware -Count 3 -SkipCompromisedCheck
                 $Result | Should -HaveCount 3
             }
         }
@@ -772,46 +772,250 @@ F8D1797B70C70DC036DC5057E535AB58319:2
     }
 
     Describe 'Debug-String' {
-
+        It 'Returns an unchanged printable string' {
+            Debug-String -InputObject 'hello' -NoEmphasis | Should -Be 'hello'
+        }
     }
 
     Describe 'Get-Color' {
+        It 'Writes color samples without requiring interactive console output' {
+            Mock Write-Host {}
 
+            Get-Color
+        }
     }
 
     Describe 'Get-Office365IPURL' {
+        It 'Converts an endpoint response into filtered endpoint objects' {
+            Mock Invoke-RestMethod {
+                [pscustomobject]@{
+                    ServiceArea = 'Exchange'
+                    Required    = $true
+                    URLs        = @('mail.example.com')
+                    TCPPorts    = '443'
+                    UDPPorts    = ''
+                    ips         = @('192.0.2.10')
+                }
+            }
+            Mock Import-Module {}
 
+            $Result = Get-Office365IPURL -Services Exchange -Types URL
+
+            $Result | Should -HaveCount 1
+            $Result[0].Service | Should -Be 'Exchange'
+            $Result[0].Endpoint | Should -Be 'mail.example.com'
+            $Result[0].Protocol | Should -Be 'TCP'
+            $Result[0].Port | Should -Be '443'
+        }
     }
 
     Describe 'Get-PublicIP' {
+        It 'Returns the response from the public IP service' {
+            Mock Invoke-RestMethod {
+                [pscustomobject]@{ ip = '192.0.2.1' }
+            }
 
+            (Get-PublicIP).ip | Should -Be '192.0.2.1'
+        }
     }
 
     Describe 'New-EXOUnattendedAzureApp' {
+        It 'Reports a module import failure without attempting Azure setup' {
+            Mock Import-Module { throw 'Mocked module import failure' }
 
+            {
+                New-EXOUnattendedAzureApp -Organization 'example.com' -OutputDirectory 'C:\output'
+            } | Should -Throw '*Failed to import module PKI*'
+        }
     }
 
     Describe 'New-EXOUnattendedCert' {
+        It 'Reports a module import failure without attempting Azure setup' {
+            Mock Import-Module { throw 'Mocked module import failure' }
 
+            {
+                New-EXOUnattendedCert -Organization 'example.com' -OutputDirectory 'C:\output' -AppID 'app-id' -DisplayName 'test'
+            } | Should -Throw '*Failed to import module PKI*'
+        }
     }
 
     Describe 'Resolve-IPinSubnet' {
+        It 'Returns true when the IP and network match under the supplied mask' {
+            Mock ConvertTo-DecimalIP {
+                switch ($IPAddress)
+                {
+                    '192.0.2.10' { 3221225994 }
+                    '192.0.2.0' { 3221225984 }
+                    '255.255.255.0' { 4294967040 }
+                }
+            }
+            Mock ConvertTo-Mask { '255.255.255.0' }
 
+            Resolve-IPinSubnet -IP '192.0.2.10' -Network '192.0.2.0' -MaskLength 24 | Should -BeTrue
+        }
     }
 
     Describe 'Switch-Object' {
+        It 'Returns each input property as a name and value pair' {
+            $InputObject = [pscustomobject]@{
+                First  = 'one'
+                Second = 2
+            }
 
+            $Result = Switch-Object -InputObject $InputObject
+
+            $Result | Should -HaveCount 2
+            ($Result | Where-Object Name -eq 'First').Value | Should -Be 'one'
+            ($Result | Where-Object Name -eq 'Second').Value | Should -Be 2
+        }
     }
 
     Describe 'Test-AllHashKeysAreTrue' {
+        It 'Returns true when all values are truthy' {
+            @{ First = $true; Second = 1 } | Test-AllHashKeysAreTrue | Should -BeTrue
+        }
 
+        It 'Returns false when a value is false' {
+            @{ First = $true; Second = $false } | Test-AllHashKeysAreTrue | Should -BeFalse
+        }
     }
 
     Describe 'Test-Office365IPURL' {
+        It 'Returns membership results for published IP ranges without DNS or network access' {
+            Mock Invoke-RestMethod {
+                [pscustomobject]@{
+                    id          = 1
+                    ServiceArea = 'Exchange'
+                    tcpPorts    = '443'
+                    udpPorts    = ''
+                    Required    = $true
+                    ips         = @('192.0.2.0/24')
+                    urls        = @()
+                }
+            }
+            Mock Import-Module {}
+            Mock Resolve-DnsName {}
+            Mock Test-SubnetMember { $true }
 
+            $Result = Test-Office365IPURL -IP '192.0.2.10'
+
+            $Result | Should -HaveCount 1
+            $Result[0].Subject | Should -Be '192.0.2.10'
+            $Result[0].IsMember | Should -BeTrue
+        }
     }
 
-    Describe 'Test-PSGalleryNameAvailability' {}
+    Describe 'Test-PSGalleryNameAvailability' {
+        It 'Returns true when the mocked Gallery response indicates the package is missing' {
+            Mock Invoke-WebRequest {
+                [pscustomobject]@{ RawContent = 'Page not found' }
+            }
 
-    Describe 'Test-RebootPending' {}
+            Test-PSGalleryNameAvailability -PackageName 'MissingModule' | Should -BeTrue
+        }
+    }
+
+    Describe 'Test-RebootPending' {
+        It 'Returns the mocked registry key status' {
+            Mock Test-Path { $true }
+
+            Test-RebootPending | Should -BeTrue
+        }
+    }
+
+    Describe 'Test-GalleryModuleUpdate' {
+        BeforeEach {
+            Mock Invoke-WebRequest {
+                [pscustomobject]@{
+                    Headers = @{
+                        Location = 'https://www.powershellgallery.com/packages/TestModule/2.0.0'
+                    }
+                }
+            }
+        }
+
+        It 'Reports the latest version and whether an update is available' {
+            $Result = [pscustomobject]@{ Name = 'TestModule'; Version = [version]'1.0.0' } |
+                Test-GalleryModuleUpdate
+
+            $Result.ModuleName | Should -Be 'TestModule'
+            $Result.CurrentVersion | Should -Be ([version]'1.0.0')
+            $Result.LatestVersion | Should -Be ([version]'2.0.0')
+            $Result.NeedsUpdate | Should -BeTrue
+        }
+
+        It 'Returns no results with NeedUpdateOnly when the installed version is current' {
+            $Result = [pscustomobject]@{ Name = 'TestModule'; Version = [version]'2.0.0' } |
+                Test-GalleryModuleUpdate -NeedUpdateOnly
+
+            $Result | Should -BeNullOrEmpty
+        }
+    }
+
+    Describe 'Get-PostNordNextDelivery' {
+        It 'Requests and returns the delivery data for the requested postal code' {
+            Mock Invoke-RestMethod {
+                [pscustomobject]@{ postalCode = 12345; city = 'Example City' }
+            }
+
+            $Result = Get-PostNordNextDelivery -PostalCode 12345
+
+            $Result.city | Should -Be 'Example City'
+        }
+    }
+
+    Describe 'Get-TypeConstructor' {
+        It 'Returns constructor information for a type with public constructors' {
+            $Result = Get-TypeConstructor -TypeName ([System.Text.StringBuilder])
+
+            $Result | Should -Not -BeNullOrEmpty
+            $Result[0].Type | Should -Be 'System.Text.StringBuilder'
+            $Result[0].PSObject.TypeNames | Should -Contain 'psTypeMemberConstructor'
+        }
+    }
+
+    Describe 'Get-TypeMember' {
+        It 'Returns the requested member metadata for a type' {
+            $Result = Get-TypeMember -TypeName ([string]) -MemberName Length
+
+            $Result | Should -HaveCount 1
+            $Result[0].Name | Should -Be 'Length'
+            $Result[0].MemberType | Should -Be 'Property'
+            $Result[0].Type | Should -Be 'System.String'
+        }
+    }
+
+    Describe 'Save-ExchangeHybridWizard' {
+        It 'Stops when the mocked start URL response has no redirect' {
+            Mock Invoke-WebRequest {
+                [pscustomobject]@{ Headers = @{} }
+            }
+            $OutputDirectory = Join-Path $TestDrive 'HybridWizard'
+
+            { Save-ExchangeHybridWizard -StartUrl 'https://example.test/wizard' -OutputDir $OutputDirectory } |
+                Should -Throw 'Could not resolve redirect.'
+
+            Test-Path -Path $OutputDirectory | Should -BeFalse
+        }
+    }
+
+    Describe 'Start-LogTail' {
+        It 'Formats and writes mocked log input without reading a real file' {
+            Mock Get-Content { 'ERROR sample log entry' }
+            Mock Write-Host {}
+
+            Start-LogTail -FilePath 'mock.log' -Tail 1
+
+        }
+    }
+
+    Describe 'Get-MemberMethod' {
+        It 'Returns method signatures for the named type method' {
+            $Result = Get-MemberMethod -TypeName ([string]) -MethodName Substring
+
+            $Result | Should -HaveCount 2
+            $Result | Should -Contain '$obj.Substring([Int32]startIndex)'
+            $Result | Should -Contain '$obj.Substring([Int32]startIndex,[Int32]length)'
+        }
+    }
 }

@@ -1,6 +1,35 @@
 ﻿function Get-TypeMember
-# Attribution: https://github.com/jdhitsolutions/PSScriptTools/
 {
+    <#
+    .SYNOPSIS
+        Gets members of a .NET type or object.
+    .DESCRIPTION
+        Returns information about members such as properties, methods, events,
+        and fields. Specify a type or pipe an object to inspect its type.
+    .PARAMETER TypeName
+        The .NET type to inspect, such as [string].
+    .PARAMETER InputObject
+        An object to inspect. Accepts input from the pipeline.
+    .PARAMETER StaticOnly
+        Returns static members.
+    .PARAMETER EnumOnly
+        Returns properties whose types are enumerations.
+    .PARAMETER MemberType
+        Limits results to members of the specified type: Property, Method,
+        Event, or Field.
+    .PARAMETER MemberName
+        Limits results to members whose names match this wildcard pattern.
+    .EXAMPLE
+        Get-TypeMember -TypeName ([string]) -MemberType Property
+
+        Lists the properties of the String type.
+    .EXAMPLE
+        'text' | Get-TypeMember -MemberName Length
+
+        Gets the Length member from the type of the input string.
+    .NOTES
+        Source: https://github.com/jdhitsolutions/PSScriptTools/
+    #>
     [cmdletbinding(DefaultParameterSetName = 'typename')]
     [OutputType('psTypeMember')]
     param(
@@ -87,5 +116,3 @@
         }
     }
 }
-
-Get-TypeMember -TypeName 'String'
