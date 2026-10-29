@@ -1,6 +1,20 @@
 ﻿function Get-TypeConstructor
-# Attribution: https://github.com/jdhitsolutions/PSScriptTools/
 {
+    <#
+    .SYNOPSIS
+        Gets the constructors for a .NET type.
+    .DESCRIPTION
+        Returns the constructors defined for the specified .NET type, including
+        each constructor's parameter types and names.
+    .PARAMETER TypeName
+        The .NET type to inspect, such as [datetime].
+    .EXAMPLE
+        Get-TypeConstructor -TypeName ([datetime])
+
+        Lists the constructors available for the DateTime type.
+    .NOTES
+        Source: https://github.com/jdhitsolutions/PSScriptTools/
+    #>
     [cmdletbinding(DefaultParameterSetName = 'member')]
     [OutputType('psTypeMemberConstructor')]
     [alias('ctor')]
@@ -18,8 +32,7 @@
     {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
-    } #begin
-
+    }
     process
     {
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Processing $($typename.name)"
@@ -45,16 +58,16 @@
                     Type       = $typename.FullName
                     Parameters = $newParams
                 }
-            } #foreach c
-        } #if Constructors found
+            }
+        }
         else
         {
             Write-Warning "No constructors found for $($typename.name)"
         }
-    } #process
+    }
 
     end
     {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
-    } #end
+    }
 }
