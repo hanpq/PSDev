@@ -5,6 +5,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added `Get-PostNordNextDelivery` to look up upcoming delivery dates.
+- Added `Test-GalleryModuleUpdate` to check PowerShell Gallery modules for updates.
+- Added commands to inspect .NET type members, constructors, and method signatures.
+- Added `Start-LogTail` for color-coded live log monitoring.
+- Added `Save-ExchangeHybridWizard` to download and package the wizard.
+
+### Changed
+
+- `New-Password` now uses a cryptographic random number generator in PowerShell Core.
+- Added usage help and examples for the new commands.
+
+### Fixed
+
+- Corrected the default memorable password format to match its documented pattern.
+
 ## [1.8.0] - 2024-10-30
 
 ### Removed
