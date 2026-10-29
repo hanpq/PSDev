@@ -894,7 +894,6 @@ F8D1797B70C70DC036DC5057E535AB58319:2
                 }
             }
             Mock Import-Module {}
-            Mock Resolve-DnsName {}
             Mock Test-SubnetMember { $true }
 
             $Result = Test-Office365IPURL -IP '192.0.2.10'

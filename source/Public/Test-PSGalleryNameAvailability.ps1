@@ -18,7 +18,15 @@
         $PackageName
     )
 
-    $Response = Invoke-WebRequest -Uri "https://www.powershellgallery.com/packages/$PackageName" -SkipHttpErrorCheck
+    $WebRequestParameters = @{
+        Uri = "https://www.powershellgallery.com/packages/$PackageName"
+    }
+    if ($PSVersionTable.PSVersion.Major -ge 7)
+    {
+        $WebRequestParameters.SkipHttpErrorCheck = $true
+    }
+
+    $Response = Invoke-WebRequest @WebRequestParameters
     if ($Response.RawContent -like '*Page not found*')
     {
         return $true

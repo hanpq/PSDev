@@ -51,7 +51,18 @@
     process
     {
         $URL = "https://www.powershellgallery.com/packages/$Name"
-        $page = Invoke-WebRequest -Uri $URL -UseBasicParsing -MaximumRedirection 0 -ea Ignore -SkipHttpErrorCheck
+        $WebRequestParameters = @{
+            Uri                 = $URL
+            UseBasicParsing     = $true
+            MaximumRedirection  = 0
+            ErrorAction         = 'Ignore'
+        }
+        if ($PSVersionTable.PSVersion.Major -ge 7)
+        {
+            $WebRequestParameters.SkipHttpErrorCheck = $true
+        }
+
+        $page = Invoke-WebRequest @WebRequestParameters
         [version]$latest = Split-Path -Path $page.Headers.Location -Leaf
         $NeedsUpdate = $Latest -gt $Version
 

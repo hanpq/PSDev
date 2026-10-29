@@ -69,7 +69,17 @@
     $ErrorActionPreference = 'Stop'
 
     # Resolve redirect
-    $response = Invoke-WebRequest -Uri $StartUrl -MaximumRedirection 0 -SkipHttpErrorCheck -ErrorAction SilentlyContinue
+    $WebRequestParameters = @{
+        Uri                 = $StartUrl
+        MaximumRedirection  = 0
+        ErrorAction         = 'SilentlyContinue'
+    }
+    if ($PSVersionTable.PSVersion.Major -ge 7)
+    {
+        $WebRequestParameters.SkipHttpErrorCheck = $true
+    }
+
+    $response = Invoke-WebRequest @WebRequestParameters
 
     $applicationUrl = $response.Headers.Location | Select-Object -First 1
 
