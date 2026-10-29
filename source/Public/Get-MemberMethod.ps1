@@ -1,6 +1,23 @@
 ﻿function Get-MemberMethod
-# Attribution: https://github.com/jdhitsolutions/PSScriptTools/
 {
+    <#
+    .SYNOPSIS
+        Shows the method signature for a .NET type method.
+    .DESCRIPTION
+        Returns method signatures for the named method on the specified .NET
+        type, including parameter types and names. Overloaded methods are
+        returned as separate signatures.
+    .PARAMETER TypeName
+        The .NET type to inspect, such as [string].
+    .PARAMETER MethodName
+        The case-sensitive name of the method to find.
+    .EXAMPLE
+        Get-MemberMethod -TypeName ([string]) -MethodName Substring
+
+        Lists the signatures of the String.Substring method overloads.
+    .NOTES
+        Source: https://github.com/jdhitsolutions/PSScriptTools/
+    #>
     [cmdletbinding()]
     [OutputType('string')]
     [alias('gmm')]
@@ -29,8 +46,7 @@
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
-    } #begin
-
+    }
     process
     {
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Processing method $MethodName from $($TypeName.Name)"
@@ -39,20 +55,17 @@
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Found $($methods.count) overloads"
         foreach ($method in $methods)
         {
-            $rType = $method.ReturnType.Name
             $params = foreach ($param in $method.GetParameters())
             {
                 '[{0}]{1}' -f $param.ParameterType.Name, $param.name
             }
-            # This will include the return type
-            # '{0} {1}({2})' -f $rtype, $method.Name, ($params -join ',')
             '$obj.{0}({1})' -f $method.Name, ($params -join ',')
         }
-    } #process
+    }
 
     end
     {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
-    } #end
+    }
 
-} #close Get-MemberMethod
+}
