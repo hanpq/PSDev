@@ -10,7 +10,7 @@
         'Microsoft.PowerShell.PSResourceGet' = '1.2.0'
     }
     Documentation = @{
-        'Alt3.Dusaurus.Powershell' = '1.0.37'
+        'Alt3.Docusaurus.Powershell' = '1.0.37'
         platyPS                    = '0.14.2'
     }
 }
