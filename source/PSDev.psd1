@@ -8,7 +8,7 @@
 
 @{
     RootModule           = 'PSDev.psm1'
-    ModuleVersion        = '0.0.1'
+    ModuleVersion        = '1.8.0'
     CompatiblePSEditions = @('Desktop', 'Core')
     PowerShellVersion    = '5.1'
     GUID                 = '92f82248-3ce2-432c-92c5-6d1803aac085'
@@ -18,6 +18,7 @@
     Description          = 'Various tools'
     RequiredModules      = @('indented.net.ip')
     FunctionsToExport    = '*'
+    AliasesToExport      = @()
     #CmdletsToExport      = '*'
     #VariablesToExport    = '*'
     #AliasesToExport      = '*'

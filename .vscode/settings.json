@@ -1,5 +1,22 @@
 {
+    "github.copilot.chat.commitMessageGeneration.instructions": [
+        {
+            "file": ".github/copilot-instructions.md"
+        }
+    ],
     "cSpell.words": [
-        "IDERA"
+        "APITOKEN",
+        "GALLERYAPITOKEN",
+        "GITHUBTOKEN",
+        "hanpq",
+        "IDERA",
+        "LASTEXITCODE",
+        "mkdocs",
+        "notmatch",
+        "platyps",
+        "Powershellgallery",
+        "psake",
+        "PSHOME",
+        "PSTOOLS"
     ]
 }
