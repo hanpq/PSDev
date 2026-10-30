@@ -1,4 +1,4 @@
-﻿$project = & (Join-Path $PSScriptRoot 'scripts\Get-BuildProject.ps1') -ProjectRoot $PSScriptRoot
+$project = & (Join-Path $PSScriptRoot 'scripts\Get-BuildProject.ps1') -ProjectRoot $PSScriptRoot
 $moduleManifest = Join-Path $PSScriptRoot "output\$($project.Name)\$($project.ModuleVersion)\$($project.Name).psd1"
 
 if (-not (Test-Path -LiteralPath $moduleManifest))
@@ -7,4 +7,5 @@ if (-not (Test-Path -LiteralPath $moduleManifest))
 }
 
 Import-Module $moduleManifest -Force
+
 # Add manual test scenarios for PSDev here.

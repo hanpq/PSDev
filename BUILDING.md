@@ -82,4 +82,4 @@ Install-Module PSDev -AllowPrerelease
 
 The build uses these pinned dependencies from `output/RequiredModules`; you do not need to install them separately.
 
-Pipeline kit: hanpq/PSLogs@03d75db1217ffae550ae91257f31e38a9cf00005
+Pipeline kit: hanpq/PSLogs@d2b7d513d6b74ce5075294814cf40a9c4e7bb29e

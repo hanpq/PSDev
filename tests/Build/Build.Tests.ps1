@@ -264,8 +264,12 @@ Describe 'Build test runner' {
         $TestResultsDirectory = Join-Path $OutputDirectory 'testResults'
         $moduleDirectory = Join-Path $OutputDirectory 'ExampleModule\1.2.3'
         New-Item -ItemType Directory -Path $moduleDirectory -Force | Out-Null
+        # The runner converts against the real source folder, so map to any existing function file.
+        $mappedSourceFile = Get-ChildItem -Path (Join-Path $projectRoot 'source\Public'), (Join-Path $projectRoot 'source\Private') `
+            -Filter '*.ps1' -File -ErrorAction SilentlyContinue | Select-Object -First 1
+        $mappedSourcePath = './{0}/{1}' -f $mappedSourceFile.Directory.Name, $mappedSourceFile.Name
         Set-Content -LiteralPath (Join-Path $moduleDirectory 'ExampleModule.psm1') -Value @(
-            "#Region './Public/Add-NumberFormater.ps1' -1", '', 'Write-Output 1'
+            "#Region '$mappedSourcePath' -1", '', 'Write-Output 1'
         )
         Mock Write-Host {}
         Mock Import-BuildModule {}
