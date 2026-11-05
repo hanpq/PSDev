@@ -3,6 +3,14 @@
 The format is based on and uses the types of changes according to [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.1](https://github.com/hanpq/PSDev/compare/v1.8.0...v1.8.1) (2026-11-05)
+
+### Bug Fixes
+
+* trigger beta release ([69a60f5](https://github.com/hanpq/PSDev/commit/69a60f572f4578677da1debdde12605f9407a1d7))
+
+* correct spelling of Docusaurus in RequiredModules.psd1 ([8743788](https://github.com/hanpq/PSDev/commit/874378859e3830e2019b33e5109a679750e1642b))
+
 ## [1.8.1-beta002](https://github.com/hanpq/PSDev/compare/v1.8.1-beta001...v1.8.1-beta002) (2026-11-05)
 
 
