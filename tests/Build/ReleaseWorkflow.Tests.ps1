@@ -65,6 +65,68 @@ Describe 'Release workflow contract' {
     }
 }
 
+Describe 'Gallery publishing dependencies' {
+    BeforeAll {
+        $publishWorkflow = Get-Content (Join-Path $projectRoot '.github\workflows\release.yml') -Raw
+        $publishText = [regex]::Match($publishWorkflow, '(?s)- name: Publish to PowerShell Gallery.*?run: \|\r?\n(?<code>.*?)(?=      - name:)').Groups['code'].Value
+        $publishScript = [scriptblock]::Create(($publishText -replace '(?m)^          ', ''))
+    }
+
+    It 'makes restored dependencies discoverable in a fresh publishing process' {
+        $fixtureRoot = Join-Path $TestDrive 'publish'
+        $dependencyRoot = Join-Path $fixtureRoot 'output\RequiredModules'
+        $dependencyDirectory = Join-Path $dependencyRoot 'ExampleDependency\1.0.0'
+        $moduleDirectory = Join-Path $fixtureRoot 'output\ExampleModule\1.0.0'
+        New-Item -ItemType Directory -Path $dependencyDirectory, $moduleDirectory -Force | Out-Null
+        Set-Content (Join-Path $dependencyDirectory 'ExampleDependency.psd1') "@{ ModuleVersion = '1.0.0'; GUID = '$([guid]::NewGuid())' }"
+        Set-Content (Join-Path $moduleDirectory 'ExampleModule.psd1') "@{ ModuleVersion = '1.0.0'; GUID = '$([guid]::NewGuid())'; RequiredModules = @('ExampleDependency') }"
+        $savedEnvironment = @{}
+        foreach ($name in @('PSModulePath', 'GALLERYAPITOKEN', 'MODULE_VERSION', 'MODULE_PATH', 'MODULE_NAME'))
+        {
+            $savedEnvironment[$name] = [Environment]::GetEnvironmentVariable($name)
+        }
+        Mock Publish-Module {
+            param($Path, $NuGetApiKey, $Repository)
+            $NuGetApiKey | Should -Be 'test-token'
+            $Repository | Should -Be 'PSGallery'
+            $null = Test-ModuleManifest -Path (Join-Path $Path 'ExampleModule.psd1') -ErrorAction Stop
+        }
+
+        Push-Location $fixtureRoot
+        try
+        {
+            $env:PSModulePath = $PSHOME
+            $env:GALLERYAPITOKEN = 'test-token'
+            $env:MODULE_VERSION = '1.0.0'
+            $env:MODULE_PATH = 'output\ExampleModule\1.0.0'
+            $env:MODULE_NAME = 'ExampleModule'
+            { Test-ModuleManifest (Join-Path $moduleDirectory 'ExampleModule.psd1') -ErrorAction Stop } | Should -Throw
+
+            & $publishScript
+
+            Should -Invoke Publish-Module -Times 1 -Exactly
+            ($env:PSModulePath -split [IO.Path]::PathSeparator)[0] | Should -Be $dependencyRoot
+        }
+        finally
+        {
+            Pop-Location
+            foreach ($name in $savedEnvironment.Keys)
+            {
+                [Environment]::SetEnvironmentVariable($name, $savedEnvironment[$name])
+            }
+        }
+    }
+
+    It 'uses the restored runtime dependency name with exact casing in the manifest' {
+        $dependencies = Import-PowerShellDataFile (Join-Path $projectRoot 'RequiredModules.psd1')
+        $manifest = Import-PowerShellDataFile (Join-Path $projectRoot 'source\PSDev.psd1')
+
+        $manifest.RequiredModules | Should -Contain 'Indented.Net.IP'
+        $manifest.RequiredModules[0] | Should -BeExactly 'Indented.Net.IP'
+        $dependencies.Build.'Indented.Net.IP' | Should -Be '6.3.2'
+    }
+}
+
 Describe 'Manual beta preparation guard' {
     BeforeEach {
         $apiState = @{ Pulls = @(); Calls = 0; Version = '2.0.0-beta001' }

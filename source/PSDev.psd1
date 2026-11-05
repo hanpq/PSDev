@@ -16,7 +16,7 @@
     CompanyName          = 'GetPS'
     Copyright            = '(c) Hannes Palmquist. All rights reserved.'
     Description          = 'Various tools'
-    RequiredModules      = @('indented.net.ip')
+    RequiredModules      = @('Indented.Net.IP')
     FunctionsToExport    = '*'
     AliasesToExport      = @()
     #CmdletsToExport      = '*'

@@ -64,6 +64,8 @@ The release workflow checks that the immutable tag, tracked version, GitHub prer
 
 The release workflow builds and tests the tag, attaches a ZIP to the GitHub release, and publishes the module to the PowerShell Gallery. Do not edit `.release-please-manifest.json` or toggle release configuration during routine development.
 
+Runtime dependencies such as `Indented.Net.IP` remain separate Gallery dependencies, not bundled modules. Keep their restore pins in `RequiredModules.psd1` and use the dependency's exact module-name casing in the source manifest for Linux discovery. The Gallery publishing step adds `output/RequiredModules` to its own `PSModulePath`; the isolated build process cannot change the publishing process's environment.
+
 Prereleases use padded labels such as `beta001`. Users must opt in when installing, for example:
 
 ```powershell
