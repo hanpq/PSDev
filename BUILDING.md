@@ -16,11 +16,19 @@ The default `Verify` task builds the module from `source/` and runs tests from `
 ./build.ps1 -Task Package
 ```
 
+Optional `source/en-US`, `source/include` and `source/format` directories are copied into the built module when present. Keep source directory names lowercase except for canonical PowerShell culture directories such as `en-US`.
+
 Import the generated module from `output/PSDev/<version>/` to try it locally. Make changes in `source/`, not generated output under `output/`.
 
-Local tests run all suites by default. Use `-Task Test -TestSuite Module` for unit/QA tests or `-Task Test -TestSuite Infrastructure` for build/release tests. CI runs module tests with coverage across all supported platforms, and infrastructure tests once on Linux PowerShell 7 without coverage. Release publishing runs the module suite.
+Local tests run the unit, QA and infrastructure suites by default. Use `-Task Test -TestSuite Module` for unit/QA tests, `-Task Test -TestSuite Infrastructure` for build/release tests, or `-Task Test -TestSuite Integration` for integration tests. The integration suite is opt-in and does not run as part of the default `All` suite. CI runs module tests with coverage across all supported platforms, and infrastructure tests once on Linux PowerShell 7 without coverage. Release publishing runs the module suite.
 
-Coverage instruments the built module that the tests execute, then uses ModuleBuilder's source mappings to report the original `source/Public` and `source/Private` files in `output/testResults/JaCoCo_coverage.xml`. The module test run fails if coverage is below the configured target (currently 1%).
+For a subset of tests, add Pester tags, for example `./build.ps1 -Task Test -TestSuite Module -Tag 'Unit','Get-PublicIP'`. Tag-filtered runs skip code coverage.
+
+Coverage instruments the built module that the tests execute, then uses ModuleBuilder's source mappings to report the original `source/public` and `source/private` files in `output/testResults/JaCoCo_coverage.xml`. The build also prints the mapped source instruction coverage. The module test run fails if coverage is below the configured target (currently 1%).
+
+PowerShell Gallery release notes are limited to 10,000 characters during the build. Longer notes are truncated at a line boundary and include a link to the full changelog on `main`, derived from the repository's Git `origin` URL (GitHub HTTPS or SSH).
+
+Untagged builds use the `## [Unreleased]` changelog section for release notes. The heading must exist, but its content may be empty.
 
 The QA suite in `tests/QA/module.tests.ps1` reports each file-quality check separately. It discovers source files and reads unit-test files once per run, and parses each function file once in its context's `BeforeAll`. Keep these shared inputs read-only so individual checks remain independent.
 
@@ -37,7 +45,7 @@ Tasks require PowerShell 7 (`pwsh` on PATH). Debugging requires the VS Code Powe
 ## Submit a change
 
 1. Make and test your change on a branch.
-2. Open a pull request against `main`. CI runs for pull requests and pushes to `main`.
+2. Open a pull request against `main`. CI runs for pull requests and pushes to `main`. Pushes that only change release metadata (`.release-please-manifest.json`, `version.txt`, `CHANGELOG.md`), such as merged release PRs, skip CI on `main` because the PR and the release workflow already test them.
 3. Use a Conventional Commit title for changes that should trigger a release. `feat:` requests a minor release; `fix:` and `perf:` request a patch; `!` or a `BREAKING CHANGE:` footer requests a major release. `docs:`, `test:`, and `chore:` do not trigger releases.
 4. Squash-merge using the PR title as the commit message so Release Please can determine the correct version and generate release notes.
 
@@ -88,4 +96,8 @@ Stable releases update getps.dev through `scripts/Update-Docs.ps1`. Generated co
 
 The build uses these pinned dependencies from `output/RequiredModules`; you do not need to install them separately.
 
-Pipeline kit: hanpq/PSLogs@d2b7d513d6b74ce5075294814cf40a9c4e7bb29e
+## Pipeline customizations
+
+- Keep `Indented.Net.IP` pinned in the `Build` group of `RequiredModules.psd1`; it is a runtime dependency declared by the module manifest.
+
+Pipeline kit: hanpq/PSLogs@2c0c20511a3ec6e12b4ec751450e310b7c63236f
